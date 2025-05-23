@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#8b4513">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>更多内容 - 玛雅天赋印记</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>更多内容</h1>
+        
+        <div class="page-content">
+            <div class="placeholder-content">
+                <p>更多内容正在建设中...</p>
+                <p>敬请期待！</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="nav-icon">🔍</i>
+            <span>查询</span>
+        </a>
+        <a href="more.html" class="nav-item active">
+            <i class="nav-icon">📚</i>
+            <span>更多</span>
+        </a>
+        <a href="contact.html" class="nav-item">
+            <i class="nav-icon">📞</i>
+            <span>联系我</span>
+        </a>
+    </div>
+    
+    <script>
+        // 简单的页面切换效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    navItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

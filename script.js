@@ -324,6 +324,83 @@ const monthNums = {
 };
 
 // 图腾色彩映射
+const MAYA_PANEL_TONE_NAMES = [
+    null,
+    "\u78c1\u6027\u7684",
+    "\u6708\u4eae\u7684",
+    "\u7535\u529b\u7684",
+    "\u81ea\u6211\u5b58\u5728\u7684",
+    "\u8d85\u9891\u7684",
+    "\u97f5\u5f8b\u7684",
+    "\u5171\u9e23\u7684",
+    "\u94f6\u6cb3\u661f\u7cfb\u7684",
+    "\u592a\u9633\u7684",
+    "\u884c\u661f\u7684",
+    "\u5149\u8c31\u7684",
+    "\u6c34\u6676\u7684",
+    "\u5b87\u5b99\u7684"
+];
+
+const MAYA_PANEL_SEAL_NAMES = [
+    null,
+    "\u7ea2\u9f99",
+    "\u767d\u98ce",
+    "\u84dd\u591c",
+    "\u9ec4\u79cd\u5b50",
+    "\u7ea2\u86c7",
+    "\u767d\u4e16\u754c\u6865",
+    "\u84dd\u624b",
+    "\u9ec4\u661f\u661f",
+    "\u7ea2\u6708",
+    "\u767d\u72d7",
+    "\u84dd\u7334",
+    "\u9ec4\u4eba",
+    "\u7ea2\u5929\u884c\u8005",
+    "\u767d\u5deb\u5e08",
+    "\u84dd\u9e70",
+    "\u9ec4\u6218\u58eb",
+    "\u7ea2\u5730\u7403",
+    "\u767d\u955c\u5b50",
+    "\u84dd\u98ce\u66b4",
+    "\u9ec4\u592a\u9633"
+];
+
+const MAYA_PANEL_MONTH_NAMES = [
+    "\u78c1\u6027\u4e4b\u6708",
+    "\u6708\u4eae\u4e4b\u6708",
+    "\u7535\u529b\u4e4b\u6708",
+    "\u81ea\u6211\u5b58\u5728\u4e4b\u6708",
+    "\u8d85\u9891\u4e4b\u6708",
+    "\u97f5\u5f8b\u4e4b\u6708",
+    "\u5171\u9e23\u4e4b\u6708",
+    "\u94f6\u6cb3\u661f\u7cfb\u4e4b\u6708",
+    "\u592a\u9633\u4e4b\u6708",
+    "\u884c\u661f\u4e4b\u6708",
+    "\u5149\u8c31\u4e4b\u6708",
+    "\u6c34\u6676\u4e4b\u6708",
+    "\u5b87\u5b99\u4e4b\u6708"
+];
+
+const MAYA_PANEL_WEEK_NAMES = [
+    "\u7ea2\u8272\u542f\u52a8\u4e4b\u5468",
+    "\u767d\u8272\u6e05\u7406\u4e4b\u5468",
+    "\u84dd\u8272\u8715\u53d8\u4e4b\u5468",
+    "\u9ec4\u8272\u6536\u83b7\u4e4b\u5468"
+];
+
+const MAYA_PANEL_DAY_NAMES = [
+    "\u7b2c1\u5929 \u9876\u8f6e DALI",
+    "\u7b2c2\u5929 \u6d77\u5e95\u8f6e SELI",
+    "\u7b2c3\u5929 \u7709\u5fc3\u8f6e GAMMA",
+    "\u7b2c4\u5929 \u8110\u8f6e KALI",
+    "\u7b2c5\u5929 \u5589\u8f6e ALPHA",
+    "\u7b2c6\u5929 \u8179\u8f6e LIMI",
+    "\u7b2c7\u5929 \u5fc3\u8f6e SILIO"
+];
+
+const MAYA_DAY_OUT_OF_TIME_MONTH = 7;
+const MAYA_DAY_OUT_OF_TIME_DAY = 25;
+
 const totemColors = {
     "红龙": "red", "红蛇": "red", "红月": "red", "红天行者": "red", "红地球": "red",
     "白风": "white", "白世界桥": "white", "白狗": "white", "白巫师": "white", "白镜子": "white",
@@ -390,6 +467,123 @@ function kinToToneSeal(kin) {
 }
 
 // 计算玛雅天赋印记
+function getMayaPanelMainInfo(kin) {
+    const toneSeal = kinToToneSeal(kin);
+    const tone = toneSeal.tone;
+    const seal = toneSeal.seal;
+    return {
+        tone,
+        seal,
+        toneName: MAYA_PANEL_TONE_NAMES[tone] || toneNames[tone] || "",
+        sealName: MAYA_PANEL_SEAL_NAMES[seal] || totemNames[seal] || ""
+    };
+}
+
+function getMayaPanelYearStartGregorianYear(year, month, day) {
+    if (month > 7 || (month === 7 && day >= 26)) {
+        return year;
+    }
+    return year - 1;
+}
+
+function buildMayaCalendarQuickSummary(year, month, day) {
+    const mainKin = gregorianToKin(year, month, day);
+    const mainInfo = getMayaPanelMainInfo(mainKin);
+
+    const mayaYearStart = getMayaPanelYearStartGregorianYear(year, month, day);
+    const mayaYearKin = gregorianToKin(mayaYearStart, 7, 26);
+    const mayaYearInfo = getMayaPanelMainInfo(mayaYearKin);
+
+    let monthWeekLine = "";
+    let dayLine = "";
+    let noteLine = "";
+
+    const isDayOutOfTime = (
+        month === MAYA_DAY_OUT_OF_TIME_MONTH &&
+        day === MAYA_DAY_OUT_OF_TIME_DAY
+    );
+
+    if (isDayOutOfTime) {
+        monthWeekLine = "\u65e0\u65f6\u95f4\u65e5";
+        dayLine = "";
+        noteLine = "\u6bcf\u5e747\u670825\u65e5\u4e3a\u65e0\u65f6\u95f4\u65e5";
+    } else if (typeof getLunar13Info === "function") {
+        const lunar13Info = getLunar13Info(year, month, day);
+        const hasLunarDate = (
+            lunar13Info &&
+            !lunar13Info.error &&
+            Number.isInteger(lunar13Info.lunarMonth) &&
+            Number.isInteger(lunar13Info.lunarDay)
+        );
+
+        if (hasLunarDate) {
+            const lunarMonth = lunar13Info.lunarMonth;
+            const lunarDay = lunar13Info.lunarDay;
+            const monthName = MAYA_PANEL_MONTH_NAMES[lunarMonth - 1] || `${lunarMonth}\u6708`;
+            const weekIndex = Math.floor((lunarDay - 1) / 7) + 1;
+            const weekName = MAYA_PANEL_WEEK_NAMES[weekIndex - 1] || "";
+            const dayIndex = ((lunarDay - 1) % 7) + 1;
+            const dayName = MAYA_PANEL_DAY_NAMES[dayIndex - 1] || `\u7b2c${dayIndex}\u5929`;
+
+            monthWeekLine = `${monthName} ${weekName}`.trim();
+            dayLine = dayName;
+            noteLine = `13\u6708\u4eae\u5386\uff1a${lunarMonth}\u6708${lunarDay}\u65e5`;
+        } else {
+            monthWeekLine = "\u65e0\u6cd5\u83b7\u53d613\u6708\u4eae\u5386\u4fe1\u606f";
+        }
+    } else {
+        monthWeekLine = "\u7f3a\u5c11 getLunar13Info \u51fd\u6570";
+    }
+
+    return {
+        yearLine: `${mayaYearInfo.toneName}${mayaYearInfo.sealName}\u5e74`,
+        monthWeekLine,
+        dayLine,
+        noteLine,
+        mainLine: `${mainInfo.toneName}${mainInfo.sealName}`,
+        kinLine: `KIN:${mainKin}`
+    };
+}
+
+function updateCalendarQuickCard(year, month, day) {
+    const yearElement = document.getElementById("summary-year");
+    const monthWeekElement = document.getElementById("summary-month-week");
+    const dayElement = document.getElementById("summary-day");
+    const noteElement = document.getElementById("summary-note");
+    const mainElement = document.getElementById("summary-main");
+    const kinElement = document.getElementById("summary-kin");
+
+    if (!yearElement || !monthWeekElement || !dayElement || !noteElement || !mainElement || !kinElement) {
+        return;
+    }
+
+    const summary = buildMayaCalendarQuickSummary(year, month, day);
+
+    yearElement.textContent = summary.yearLine;
+    monthWeekElement.textContent = summary.monthWeekLine;
+    dayElement.textContent = summary.dayLine;
+    mainElement.textContent = summary.mainLine;
+    kinElement.textContent = summary.kinLine;
+
+    if (summary.noteLine) {
+        noteElement.textContent = summary.noteLine;
+        noteElement.style.display = "block";
+    } else {
+        noteElement.textContent = "";
+        noteElement.style.display = "none";
+    }
+}
+
+function updateCalendarQuickCardFromSelectors() {
+    const year = parseInt(document.getElementById("year").value, 10);
+    const month = parseInt(document.getElementById("month").value, 10);
+    const day = parseInt(document.getElementById("day").value, 10);
+
+    if (!Number.isNaN(year) && !Number.isNaN(month) && !Number.isNaN(day)) {
+        updateCalendarQuickCard(year, month, day);
+    }
+}
+
 function calculateMayaTraits(year, month, day) {
     const kinMain = gregorianToKin(year, month, day);
     const { tone: toneMain, seal: sealMain } = kinToToneSeal(kinMain);
@@ -551,6 +745,7 @@ function initDateSelectors() {
                 break;
             }
         }
+        updateCalendarQuickCardFromSelectors();
     }, 0);
     
     // 当年份或月份改变时，更新日期选择器
@@ -607,12 +802,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 初始化日期选择器
     initDateSelectors();
+    updateCalendarQuickCardFromSelectors();
+
+    const yearSelect = document.getElementById("year");
+    const monthSelect = document.getElementById("month");
+    const daySelect = document.getElementById("day");
+    if (yearSelect) yearSelect.addEventListener("change", updateCalendarQuickCardFromSelectors);
+    if (monthSelect) monthSelect.addEventListener("change", updateCalendarQuickCardFromSelectors);
+    if (daySelect) daySelect.addEventListener("change", updateCalendarQuickCardFromSelectors);
     
     // 添加计算按钮的点击事件监听
     document.getElementById("calculate").addEventListener("click", function() {
         const year = parseInt(document.getElementById("year").value);
         const month = parseInt(document.getElementById("month").value);
         const day = parseInt(document.getElementById("day").value);
+        updateCalendarQuickCard(year, month, day);
         
         // 计算结果
         const results = calculateMayaTraits(year, month, day);

@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#4a148c">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>玛雅星符</title>
+    <title>星符校准</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -44,6 +44,19 @@
         </div>
         
         <!-- 添加图片加载状态提示 -->
+        <div class="calendar-quick-card" id="calendar-quick-card" aria-live="polite">
+            <div class="calendar-quick-left">
+                <div class="calendar-quick-line calendar-quick-year" id="summary-year"></div>
+                <div class="calendar-quick-line" id="summary-month-week"></div>
+                <div class="calendar-quick-line" id="summary-day"></div>
+                <div class="calendar-quick-note" id="summary-note"></div>
+            </div>
+            <div class="calendar-quick-right">
+                <div class="calendar-quick-line calendar-quick-main" id="summary-main"></div>
+                <div class="calendar-quick-line calendar-quick-kin" id="summary-kin"></div>
+            </div>
+        </div>
+
         <div id="image-status" class="status-message"></div>
         
         <div class="result-section" id="result">

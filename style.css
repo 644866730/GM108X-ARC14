@@ -161,6 +161,102 @@ h2 {
     border: none;
 }
 
+.calendar-quick-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    margin: 0 0 12px 0;
+    padding: clamp(12px, 1.8vw, 20px);
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(182, 157, 230, 0.30), rgba(116, 88, 186, 0.22));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 8px 20px rgba(19, 8, 50, 0.18);
+}
+
+.calendar-quick-left {
+    flex: 1 1 62%;
+    min-width: 0;
+    padding-right: clamp(10px, 1.8vw, 20px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3px, 0.55vw, 8px);
+}
+
+.calendar-quick-right {
+    flex: 1 1 38%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: left;
+    gap: clamp(6px, 0.9vw, 12px);
+    padding-left: clamp(12px, 1.8vw, 22px);
+    border-left: 1px solid rgba(245, 235, 255, 0.28);
+}
+
+.calendar-quick-line {
+    color: rgba(250, 244, 255, 0.95);
+    font-size: clamp(0.92rem, 0.84rem + 0.52vw, 1.2rem);
+    line-height: 1.34;
+    letter-spacing: 0.02em;
+    word-break: break-word;
+    text-align: left;
+}
+
+.calendar-quick-year {
+    color: #ffd27a;
+    font-size: clamp(1.5rem, 1.1rem + 1.95vw, 2.35rem);
+    line-height: 1.12;
+    font-weight: 700;
+    margin-bottom: clamp(4px, 0.65vw, 10px);
+    text-align: left;
+    text-align-last: auto;
+}
+
+.calendar-quick-main {
+    font-size: clamp(1rem, 0.88rem + 0.82vw, 1.48rem);
+    line-height: 1.24;
+    font-weight: 600;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.calendar-quick-kin {
+    font-size: clamp(1rem, 0.89rem + 0.68vw, 1.34rem);
+    line-height: 1.2;
+    font-weight: 600;
+    color: rgba(247, 240, 255, 0.92);
+    text-align: left;
+}
+
+.calendar-quick-note {
+    margin-top: clamp(3px, 0.55vw, 7px);
+    color: rgba(255, 223, 152, 0.94);
+    font-size: clamp(0.78rem, 0.72rem + 0.36vw, 0.98rem);
+    line-height: 1.35;
+    text-align: left;
+    text-align-last: auto;
+}
+
+@media (max-width: 520px) {
+    .calendar-quick-card {
+        padding: clamp(10px, 2.6vw, 13px);
+    }
+
+    .calendar-quick-year {
+        margin-bottom: 4px;
+    }
+
+    .calendar-quick-right {
+        padding-left: clamp(9px, 2.1vw, 12px);
+    }
+}
+
 .date-input {
     display: flex;
     flex-wrap: nowrap;

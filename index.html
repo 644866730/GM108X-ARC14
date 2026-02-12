@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#4a148c">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>星符校准</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <h1>In Lak’ech Ala K’in
-            <br>你是我，我是另一个你</h1>
-        
+            <br>你是我，我是另一个你
+        </h1>
+
         <div class="poster-card">
             <img src="seal/index.jpg" alt="星符·天赋印主题图" loading="lazy">
             <div class="poster-caption">
@@ -21,7 +25,7 @@
                 <span class="poster-meta">142.857 thz · 灵视回溯</span>
             </div>
         </div>
-        
+
         <div class="input-section">
             <h2>请输入查询日期：</h2>
             <div class="date-input">
@@ -42,58 +46,59 @@
             </div>
             <button id="calculate">星符查询</button>
         </div>
-        
+
         <!-- 添加图片加载状态提示 -->
-        <div class="calendar-quick-card" id="calendar-quick-card" aria-live="polite">
-            <div class="calendar-quick-left">
-                <div class="calendar-quick-line calendar-quick-year" id="summary-year"></div>
-                <div class="calendar-quick-line" id="summary-month-week"></div>
-                <div class="calendar-quick-line" id="summary-day"></div>
-                <div class="calendar-quick-note" id="summary-note"></div>
-            </div>
-            <div class="calendar-quick-right">
-                <div class="calendar-quick-line calendar-quick-main" id="summary-main"></div>
-                <div class="calendar-quick-line calendar-quick-kin" id="summary-kin"></div>
-            </div>
-        </div>
+
 
         <div id="image-status" class="status-message"></div>
-        
+
         <div class="result-section" id="result">
             <div class="seal-grid">
-                <!-- 指引位（上） -->
-                <div class="seal guide">
-                    <div class="seal-name" id="guide-name"></div>
-                    <img id="guide-img" src="" alt="指引位图腾">
+                <!-- 指引行：KIN信息（左）+ 指引位（中）+ 日历信息（右） -->
+                <div class="guide-row">
+                    <div class="calendar-cell calendar-cell-left" aria-live="polite">
+                        <div class="calendar-cell-line calendar-cell-main" id="summary-main"></div>
+                        <div class="calendar-cell-line calendar-cell-kin" id="summary-kin"></div>
+                    </div>
+                    <div class="seal guide">
+                        <div class="seal-name" id="guide-name"></div>
+                        <img id="guide-img" src="" alt="指引位图腾">
+                    </div>
+                    <div class="calendar-cell calendar-cell-right" aria-live="polite">
+                        <div class="calendar-cell-line calendar-cell-year" id="summary-year"></div>
+                        <div class="calendar-cell-line" id="summary-month-week"></div>
+                        <div class="calendar-cell-line" id="summary-day"></div>
+                        <div class="calendar-cell-note" id="summary-note"></div>
+                    </div>
                 </div>
-                
+
                 <div class="middle-row">
                     <!-- 挑战位（左） -->
                     <div class="seal challenge">
                         <div class="seal-name" id="challenge-name"></div>
                         <img id="challenge-img" src="" alt="挑战位图腾">
                     </div>
-                    
+
                     <!-- 主印记（中） -->
                     <div class="seal main">
                         <div class="seal-name" id="main-name"></div>
                         <img id="main-img" src="" alt="主印记图腾">
                         <div class="kin-info" id="kin-info"></div>
                     </div>
-                    
+
                     <!-- 支持位（右） -->
                     <div class="seal support">
                         <div class="seal-name" id="support-name"></div>
                         <img id="support-img" src="" alt="支持位图腾">
                     </div>
                 </div>
-                
+
                 <!-- 推动位（下） -->
                 <div class="seal push">
                     <div class="seal-name" id="push-name"></div>
                     <img id="push-img" src="" alt="推动位图腾">
                 </div>
-                
+
                 <!-- 主印记描述区域 -->
                 <div class="description-section">
                     <h3>主印记解读</h3>
@@ -101,7 +106,7 @@
                         <div class="kin-desc" id="kin-desc"></div>
                     </div>
                 </div>
-                
+
                 <!-- 底部附加信息 -->
                 <div class="additional-info">
                     <!-- 波符 -->
@@ -135,7 +140,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- 底部导航栏 -->
     <div class="bottom-nav">
         <a href="index.html" class="nav-item active">
@@ -151,7 +156,7 @@
             <span>联系我</span>
         </a>
     </div>
-    
+
     <!-- 13月亮历转换器 -->
     <script src="lunar13_converter.js"></script>
 
@@ -167,4 +172,5 @@
     <!-- 主脚本 -->
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -254,7 +254,7 @@ const kinDescriptions = {
     234: "当你完全的沉浸于你的当下，你将掌握心享事成的魔法。",
     235: "你现在的格局，会为你开启新的世界。",
     236: "你有能力从所有二元对立中穿越跳脱，你的智慧让你无所畏惧，勇于开拓。",
-    237: "当你处于轨道上的时候，你周围的一切都会充满活力。", 
+    237: "当你处于轨道上的时候，你周围的一切都会充满活力。",
     238: "你可以透过观察周围的一切，快速来觉知和内醒自己，从而打破自我限制。",
     239: "你的想法正在以颠覆的形式，在你生活中快速成真。",
     240: "你需要平衡你的奉献与接收，你可以无条件的付出，你也需要全然的敞开接收。",
@@ -285,42 +285,42 @@ let kinMap = {};
 
 // 阳历出生年对应数字（1858-2117）
 const yearNums = {
-    1858:62,1859:167,1860:12,1861:117,1862:222,1863:67,1864:172,1865:17,1866:122,1867:227,
-    1868:72,1869:177,1870:22,1871:127,1872:232,1873:77,1874:182,1875:27,1876:132,1877:237,
-    1878:82,1879:187,1880:32,1881:137,1882:242,1883:87,1884:192,1885:37,1886:142,1887:247,
-    1888:92,1889:197,1890:42,1891:147,1892:252,1893:97,1894:202,1895:47,1896:152,1897:257,
-    1898:102,1899:207,1900:52,1901:157,1902:2,1903:107,1904:212,1905:57,1906:162,1907:7,
-    1908:112,1909:217,
-    1910:62,1911:167,1912:12,1913:117,1914:222,1915:67,1916:172,1917:17,1918:122,1919:227,
-    1920:72,1921:177,1922:22,1923:127,1924:232,1925:77,1926:182,1927:27,1928:132,1929:237,
-    1930:82,1931:187,1932:32,1933:137,1934:242,1935:87,1936:192,1937:37,1938:142,1939:247,
-    1940:92,1941:197,1942:42,1943:147,1944:252,1945:97,1946:202,1947:47,1948:152,1949:257,
-    1950:102,1951:207,1952:52,1953:157,1954:2,1955:107,1956:212,1957:57,1958:162,1959:7,
-    1960:112,1961:217,
-    1962:62,1963:167,1964:12,1965:117,1966:222,1967:67,1968:172,1969:17,1970:122,1971:227,
-    1972:72,1973:177,1974:22,1975:127,1976:232,1977:77,1978:182,1979:27,1980:132,1981:237,
-    1982:82,1983:187,1984:32,1985:137,1986:242,1987:87,1988:192,1989:37,1990:142,1991:247,
-    1992:92,1993:197,1994:42,1995:147,1996:252,1997:97,1998:202,1999:47,2000:152,2001:257,
-    2002:102,2003:207,2004:52,2005:157,2006:2,2007:107,2008:212,2009:57,2010:162,2011:7,
-    2012:112,2013:217,
-    2014:62,2015:167,2016:12,2017:117,2018:222,2019:67,2020:172,2021:17,2022:122,2023:227,
-    2024:72,2025:177,2026:22,2027:127,2028:232,2029:77,2030:182,2031:27,2032:132,2033:237,
-    2034:82,2035:187,2036:32,2037:137,2038:242,2039:87,2040:192,2041:37,2042:142,2043:247,
-    2044:92,2045:197,2046:42,2047:147,2048:252,2049:97,2050:202,2051:47,2052:152,2053:257,
-    2054:102,2055:207,2056:52,2057:157,2058:2,2059:107,2060:212,2061:57,2062:162,2063:7,
-    2064:112,2065:217,
-    2066:62,2067:167,2068:12,2069:117,2070:222,2071:67,2072:172,2073:17,2074:122,2075:227,
-    2076:72,2077:177,2078:22,2079:127,2080:232,2081:77,2082:182,2083:27,2084:132,2085:237,
-    2086:82,2087:187,2088:32,2089:137,2090:242,2091:87,2092:192,2093:37,2094:142,2095:247,
-    2096:92,2097:197,2098:42,2099:147,2100:252,2101:97,2102:202,2103:47,2104:152,2105:257,
-    2106:102,2107:207,2108:52,2109:157,2110:2,2111:107,2112:212,2113:57,2114:162,2115:7,
-    2116:112,2117:217
+    1858: 62, 1859: 167, 1860: 12, 1861: 117, 1862: 222, 1863: 67, 1864: 172, 1865: 17, 1866: 122, 1867: 227,
+    1868: 72, 1869: 177, 1870: 22, 1871: 127, 1872: 232, 1873: 77, 1874: 182, 1875: 27, 1876: 132, 1877: 237,
+    1878: 82, 1879: 187, 1880: 32, 1881: 137, 1882: 242, 1883: 87, 1884: 192, 1885: 37, 1886: 142, 1887: 247,
+    1888: 92, 1889: 197, 1890: 42, 1891: 147, 1892: 252, 1893: 97, 1894: 202, 1895: 47, 1896: 152, 1897: 257,
+    1898: 102, 1899: 207, 1900: 52, 1901: 157, 1902: 2, 1903: 107, 1904: 212, 1905: 57, 1906: 162, 1907: 7,
+    1908: 112, 1909: 217,
+    1910: 62, 1911: 167, 1912: 12, 1913: 117, 1914: 222, 1915: 67, 1916: 172, 1917: 17, 1918: 122, 1919: 227,
+    1920: 72, 1921: 177, 1922: 22, 1923: 127, 1924: 232, 1925: 77, 1926: 182, 1927: 27, 1928: 132, 1929: 237,
+    1930: 82, 1931: 187, 1932: 32, 1933: 137, 1934: 242, 1935: 87, 1936: 192, 1937: 37, 1938: 142, 1939: 247,
+    1940: 92, 1941: 197, 1942: 42, 1943: 147, 1944: 252, 1945: 97, 1946: 202, 1947: 47, 1948: 152, 1949: 257,
+    1950: 102, 1951: 207, 1952: 52, 1953: 157, 1954: 2, 1955: 107, 1956: 212, 1957: 57, 1958: 162, 1959: 7,
+    1960: 112, 1961: 217,
+    1962: 62, 1963: 167, 1964: 12, 1965: 117, 1966: 222, 1967: 67, 1968: 172, 1969: 17, 1970: 122, 1971: 227,
+    1972: 72, 1973: 177, 1974: 22, 1975: 127, 1976: 232, 1977: 77, 1978: 182, 1979: 27, 1980: 132, 1981: 237,
+    1982: 82, 1983: 187, 1984: 32, 1985: 137, 1986: 242, 1987: 87, 1988: 192, 1989: 37, 1990: 142, 1991: 247,
+    1992: 92, 1993: 197, 1994: 42, 1995: 147, 1996: 252, 1997: 97, 1998: 202, 1999: 47, 2000: 152, 2001: 257,
+    2002: 102, 2003: 207, 2004: 52, 2005: 157, 2006: 2, 2007: 107, 2008: 212, 2009: 57, 2010: 162, 2011: 7,
+    2012: 112, 2013: 217,
+    2014: 62, 2015: 167, 2016: 12, 2017: 117, 2018: 222, 2019: 67, 2020: 172, 2021: 17, 2022: 122, 2023: 227,
+    2024: 72, 2025: 177, 2026: 22, 2027: 127, 2028: 232, 2029: 77, 2030: 182, 2031: 27, 2032: 132, 2033: 237,
+    2034: 82, 2035: 187, 2036: 32, 2037: 137, 2038: 242, 2039: 87, 2040: 192, 2041: 37, 2042: 142, 2043: 247,
+    2044: 92, 2045: 197, 2046: 42, 2047: 147, 2048: 252, 2049: 97, 2050: 202, 2051: 47, 2052: 152, 2053: 257,
+    2054: 102, 2055: 207, 2056: 52, 2057: 157, 2058: 2, 2059: 107, 2060: 212, 2061: 57, 2062: 162, 2063: 7,
+    2064: 112, 2065: 217,
+    2066: 62, 2067: 167, 2068: 12, 2069: 117, 2070: 222, 2071: 67, 2072: 172, 2073: 17, 2074: 122, 2075: 227,
+    2076: 72, 2077: 177, 2078: 22, 2079: 127, 2080: 232, 2081: 77, 2082: 182, 2083: 27, 2084: 132, 2085: 237,
+    2086: 82, 2087: 187, 2088: 32, 2089: 137, 2090: 242, 2091: 87, 2092: 192, 2093: 37, 2094: 142, 2095: 247,
+    2096: 92, 2097: 197, 2098: 42, 2099: 147, 2100: 252, 2101: 97, 2102: 202, 2103: 47, 2104: 152, 2105: 257,
+    2106: 102, 2107: 207, 2108: 52, 2109: 157, 2110: 2, 2111: 107, 2112: 212, 2113: 57, 2114: 162, 2115: 7,
+    2116: 112, 2117: 217
 };
 
 // 月份对应数
 const monthNums = {
-    1:0, 2:31, 3:59, 4:90, 5:120, 6:151,
-    7:181, 8:212, 9:243, 10:13, 11:44, 12:74
+    1: 0, 2: 31, 3: 59, 4: 90, 5: 120, 6: 151,
+    7: 181, 8: 212, 9: 243, 10: 13, 11: 44, 12: 74
 };
 
 // 图腾色彩映射
@@ -373,7 +373,7 @@ const MAYA_PANEL_MONTH_NAMES = [
     "\u8d85\u9891\u4e4b\u6708",
     "\u97f5\u5f8b\u4e4b\u6708",
     "\u5171\u9e23\u4e4b\u6708",
-    "\u94f6\u6cb3\u661f\u7cfb\u4e4b\u6708",
+    "\u94f6\u6cb3\u4e4b\u6708",
     "\u592a\u9633\u4e4b\u6708",
     "\u884c\u661f\u4e4b\u6708",
     "\u5149\u8c31\u4e4b\u6708",
@@ -415,12 +415,12 @@ function loadKinDescriptions() {
         // 获取调性和图腾
         const tone = ((kin - 1) % 13) + 1;
         const seal = ((kin - 1) % 20) + 1;
-        
+
         // 存储调性和图腾对应的Kin值
         if (!kinMap[tone]) kinMap[tone] = {};
         kinMap[tone][seal] = kin;
     }
-    
+
     console.log('Kin数据加载完成');
 }
 
@@ -449,7 +449,7 @@ function gregorianToKin(year, month, day) {
     while (y < 1858) {
         y += 52;
     }
-    
+
     const yearVal = yearNums[y];
     let S = yearVal + monthNums[month] + day;
     S %= 260;
@@ -587,30 +587,30 @@ function updateCalendarQuickCardFromSelectors() {
 function calculateMayaTraits(year, month, day) {
     const kinMain = gregorianToKin(year, month, day);
     const { tone: toneMain, seal: sealMain } = kinToToneSeal(kinMain);
-    
+
     // 计算五大天赋图腾
     // 挑战图腾 = 主图腾+10或者-10
     const sealChallenge = (sealMain + 10 - 1) % 20 + 1;
     // 支持图腾 = 19 - 主图腾
-    const sealSupport = (19 - sealMain + 20 ) % 20 || 20;
-    
+    const sealSupport = (19 - sealMain + 20) % 20 || 20;
+
     // 推动图腾 = 21 - 主图腾
     const sealPush = (21 - sealMain - 1) % 20 + 1;
-    
+
     // 指引图腾
     let sealGuide;
-    if ([1,6,11].includes(toneMain)) {
+    if ([1, 6, 11].includes(toneMain)) {
         sealGuide = sealMain;
-    } else if ([2,7,12].includes(toneMain)) {
+    } else if ([2, 7, 12].includes(toneMain)) {
         sealGuide = (sealMain + 12 - 1) % 20 + 1;
-    } else if ([3,8,13].includes(toneMain)) {
+    } else if ([3, 8, 13].includes(toneMain)) {
         sealGuide = (sealMain + 4 - 1) % 20 + 1;
-    } else if ([4,9].includes(toneMain)) {
+    } else if ([4, 9].includes(toneMain)) {
         sealGuide = (sealMain + 16 - 1) % 20 + 1;
     } else {
         sealGuide = (sealMain + 8 - 1) % 20 + 1;
     }
-    
+
     // 计算调性
     // 主图腾、挑战图腾、支持图腾、指引图腾的调性一致
     const toneChallenge = toneMain;
@@ -618,68 +618,68 @@ function calculateMayaTraits(year, month, day) {
     const toneGuide = toneMain;
     // 推动图腾的调性 = 14-主图腾调性
     const tonePush = 14 - toneMain || 13;
-    
+
     // 计算各个图腾的kin值
     const kinGuide = findKinByToneSeal(toneGuide, sealGuide);
     const kinChallenge = findKinByToneSeal(toneChallenge, sealChallenge);
     const kinSupport = findKinByToneSeal(toneSupport, sealSupport);
     const kinPush = findKinByToneSeal(tonePush, sealPush);
-    
+
     // 波符
     const waveNum = Math.floor((kinMain - 1) / 13) + 1;
     const waveDay = toneMain;  // 第几天就是调性数
     const firstDayKin = (waveNum - 1) * 13 + 1;
     const waveSeal = ((firstDayKin - 1) % 20) + 1;
-    
+
     // 内在女神
     // 计算调性：主图腾调性x3+1，大于13就一直减13
     let toneGoddess = toneMain * 3 + 1;
     while (toneGoddess > 13) {
         toneGoddess -= 13;
     }
-    
+
     // 计算图腾：指引图腾的挑战图腾
     const sealGoddess = (sealGuide + 10 - 1) % 20 + 1;
-    
+
     // 计算内在女神的Kin值
     const kinGoddess = findKinByToneSeal(toneGoddess, sealGoddess);
-    
+
     // 返回计算结果
     return {
         main: {
-            kin: kinMain, 
-            tone: toneMain, 
-            toneName: toneNames[toneMain], 
-            seal: sealMain, 
+            kin: kinMain,
+            tone: toneMain,
+            toneName: toneNames[toneMain],
+            seal: sealMain,
             sealName: totemNames[sealMain],
             description: kinDescriptions[kinMain] || ''
         },
         guide: {
             kin: kinGuide,
-            tone: toneGuide, 
-            toneName: toneNames[toneGuide], 
-            seal: sealGuide, 
+            tone: toneGuide,
+            toneName: toneNames[toneGuide],
+            seal: sealGuide,
             sealName: totemNames[sealGuide]
         },
         support: {
             kin: kinSupport,
-            tone: toneSupport, 
-            toneName: toneNames[toneSupport], 
-            seal: sealSupport, 
+            tone: toneSupport,
+            toneName: toneNames[toneSupport],
+            seal: sealSupport,
             sealName: totemNames[sealSupport]
         },
         challenge: {
             kin: kinChallenge,
-            tone: toneChallenge, 
-            toneName: toneNames[toneChallenge], 
-            seal: sealChallenge, 
+            tone: toneChallenge,
+            toneName: toneNames[toneChallenge],
+            seal: sealChallenge,
             sealName: totemNames[sealChallenge]
         },
         push: {
             kin: kinPush,
-            tone: tonePush, 
-            toneName: toneNames[tonePush], 
-            seal: sealPush, 
+            tone: tonePush,
+            toneName: toneNames[tonePush],
+            seal: sealPush,
             sealName: totemNames[sealPush]
         },
         wave: {
@@ -704,13 +704,13 @@ function initDateSelectors() {
     const yearSelect = document.getElementById("year");
     const monthSelect = document.getElementById("month");
     const daySelect = document.getElementById("day");
-    
+
     // 获取当前日期
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1; // getMonth()返回0-11
     const currentDay = currentDate.getDate();
-    
+
     // 初始化年份选择器 (从1950年到2100年)
     for (let year = 1950; year <= 2100; year++) {
         const option = document.createElement("option");
@@ -721,7 +721,7 @@ function initDateSelectors() {
         }
         yearSelect.appendChild(option);
     }
-    
+
     // 初始化月份选择器
     for (let month = 1; month <= 12; month++) {
         const option = document.createElement("option");
@@ -732,10 +732,10 @@ function initDateSelectors() {
         }
         monthSelect.appendChild(option);
     }
-    
+
     // 更新日期选择器
     updateDaySelector();
-    
+
     // 设置当前日期
     setTimeout(() => {
         // 使用setTimeout确保日期选择器已更新
@@ -747,7 +747,7 @@ function initDateSelectors() {
         }
         updateCalendarQuickCardFromSelectors();
     }, 0);
-    
+
     // 当年份或月份改变时，更新日期选择器
     yearSelect.addEventListener("change", updateDaySelector);
     monthSelect.addEventListener("change", updateDaySelector);
@@ -758,13 +758,13 @@ function updateDaySelector() {
     const yearSelect = document.getElementById("year");
     const monthSelect = document.getElementById("month");
     const daySelect = document.getElementById("day");
-    
+
     const year = parseInt(yearSelect.value);
     const month = parseInt(monthSelect.value);
-    
+
     // 保存当前选择的日期
     const selectedDay = daySelect.value ? parseInt(daySelect.value) : 1;
-    
+
     // 计算选定月份的天数
     let daysInMonth;
     if (month === 2) {
@@ -775,10 +775,10 @@ function updateDaySelector() {
     } else {
         daysInMonth = 31;
     }
-    
+
     // 清空现有选项
     daySelect.innerHTML = "";
-    
+
     // 添加新选项
     for (let day = 1; day <= daysInMonth; day++) {
         const option = document.createElement("option");
@@ -793,7 +793,7 @@ function updateDaySelector() {
 }
 
 // 初始化页面
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // 检查seal文件夹图片
     checkSealImages();
 
@@ -810,20 +810,20 @@ document.addEventListener("DOMContentLoaded", function() {
     if (yearSelect) yearSelect.addEventListener("change", updateCalendarQuickCardFromSelectors);
     if (monthSelect) monthSelect.addEventListener("change", updateCalendarQuickCardFromSelectors);
     if (daySelect) daySelect.addEventListener("change", updateCalendarQuickCardFromSelectors);
-    
+
     // 添加计算按钮的点击事件监听
-    document.getElementById("calculate").addEventListener("click", function() {
+    document.getElementById("calculate").addEventListener("click", function () {
         const year = parseInt(document.getElementById("year").value);
         const month = parseInt(document.getElementById("month").value);
         const day = parseInt(document.getElementById("day").value);
         updateCalendarQuickCard(year, month, day);
-        
+
         // 计算结果
         const results = calculateMayaTraits(year, month, day);
-        
+
         // 显示结果
         displayResults(results);
-        
+
         // 自动滚动到结果区域
         setTimeout(() => {
             document.getElementById("result").scrollIntoView({
@@ -831,10 +831,10 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }, 500);
     });
-    
+
     // 检测设备类型，并添加相应的交互方式
     detectDeviceAndAdjust();
-    
+
     // 初始化底部导航
     initBottomNav();
 });
@@ -844,10 +844,10 @@ function initBottomNav() {
     // 获取当前页面URL
     const currentPath = window.location.pathname;
     const pageName = currentPath.split("/").pop() || "index.html";
-    
+
     // 获取所有导航项
     const navItems = document.querySelectorAll('.nav-item');
-    
+
     // 设置当前页面的导航项为激活状态
     navItems.forEach(item => {
         const href = item.getAttribute('href');
@@ -856,19 +856,19 @@ function initBottomNav() {
         } else {
             item.classList.remove('active');
         }
-        
+
         // 添加点击效果
-        item.addEventListener('click', function() {
+        item.addEventListener('click', function () {
             // 点击时添加过渡类
             this.classList.add('nav-clicked');
-            
+
             // 页面跳转前移除过渡类
             setTimeout(() => {
                 this.classList.remove('nav-clicked');
             }, 300);
         });
     });
-    
+
     // 调整内容区域的底部边距，确保内容不被底部导航遮挡
     const bottomNav = document.querySelector('.bottom-nav');
     if (bottomNav) {
@@ -882,20 +882,20 @@ function detectDeviceAndAdjust() {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const isPortrait = window.innerHeight > window.innerWidth;
     const screenWidth = window.innerWidth;
-    
+
     // 添加基础设备类
     if (isMobile) {
         // 为移动设备优化
         console.log('检测到移动设备，应用移动优化...');
         document.body.classList.add('mobile-device');
-        
+
         // 区分手机和平板
         if (screenWidth < 768) {
             document.body.classList.add('phone-device');
         } else {
             document.body.classList.add('tablet-device');
         }
-        
+
         // 区分横屏和竖屏
         if (isPortrait) {
             document.body.classList.add('portrait-mode');
@@ -904,28 +904,28 @@ function detectDeviceAndAdjust() {
             document.body.classList.add('landscape-mode');
             document.body.classList.remove('portrait-mode');
         }
-        
+
         // 对触摸设备添加特定的样式
         document.body.classList.add('touch-device');
-        
+
         // 用点击替换悬停效果
         const seals = document.querySelectorAll('.seal');
         seals.forEach(seal => {
-            seal.addEventListener('click', function() {
+            seal.addEventListener('click', function () {
                 // 先移除所有活跃状态
                 seals.forEach(s => s.classList.remove('active'));
                 // 然后添加当前项的活跃状态
                 this.classList.add('active');
-                
+
                 // 3秒后自动移除活跃状态
                 setTimeout(() => {
                     this.classList.remove('active');
                 }, 3000);
             });
         });
-        
+
         // 监听屏幕方向变化
-        window.addEventListener('orientationchange', function() {
+        window.addEventListener('orientationchange', function () {
             setTimeout(() => {
                 const isPortrait = window.innerHeight > window.innerWidth;
                 if (isPortrait) {
@@ -942,7 +942,7 @@ function detectDeviceAndAdjust() {
         console.log('检测到桌面设备');
         document.body.classList.add('desktop-device');
     }
-    
+
     // 设置图片加载优先级
     optimizeImageLoading();
 }
@@ -964,23 +964,23 @@ function optimizeImageLoading() {
                 }
             });
         });
-        
+
         // 检查页面加载后添加的图片
         function checkForNewImages() {
             document.querySelectorAll('img[data-src]').forEach(img => {
                 imageObserver.observe(img);
             });
         }
-        
+
         // 当显示结果时，设置图片的data-src而不是直接设置src
-        window.setOptimizedImageSrc = function(imgId, path) {
+        window.setOptimizedImageSrc = function (imgId, path) {
             const img = document.getElementById(imgId);
             if (img) {
                 img.setAttribute('data-src', path);
                 imageObserver.observe(img);
             }
         };
-        
+
         // 定期检查新图片
         setInterval(checkForNewImages, 1000);
     }
@@ -989,18 +989,18 @@ function optimizeImageLoading() {
 // 检查seal文件夹图片是否存在
 function checkSealImages() {
     const statusElement = document.getElementById('image-status');
-    
+
     // 创建一个测试图片元素
     const testImg = new Image();
-    testImg.onload = function() {
+    testImg.onload = function () {
         statusElement.textContent = "图片目录检查正常";
         statusElement.className = "status-message success";
         setTimeout(() => {
             statusElement.style.display = "none";
         }, 3000);
     };
-    
-    testImg.onerror = function() {
+
+    testImg.onerror = function () {
         statusElement.innerHTML = `
             <strong>提示：图片目录未找到或图片不存在</strong><br>
             请确保在网站根目录下有一个名为"seal"的文件夹，<br>
@@ -1009,7 +1009,7 @@ function checkSealImages() {
         `;
         statusElement.className = "status-message error";
     };
-    
+
     // 尝试加载一个图片
     testImg.src = "seal/1.png";
 }
@@ -1018,27 +1018,27 @@ function checkSealImages() {
 function displayResults(results) {
     // 显示结果区域
     document.getElementById("result").style.display = "block";
-    
+
     // 创建图片加载计数器
     let loadedImages = 0;
     const totalImages = 7; // 更新为7个图片（5个原始图腾 + 波符 + 内在女神）
     const statusElement = document.getElementById('image-status');
-    
+
     statusElement.textContent = "正在加载图片...";
     statusElement.className = "status-message info";
-    
+
     // 图片加载错误处理函数
     function handleImageError(img) {
         console.error(`图片加载失败: ${img.src}`);
         // 设置一个默认图片或显示错误提示
         img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='14' text-anchor='middle' dominant-baseline='middle' fill='%23888'%3E图片未找到%3C/text%3E%3C/svg%3E";
         img.style.border = "1px solid red";
-        
+
         // 更新加载计数
         loadedImages++;
         checkAllImagesLoaded();
     }
-    
+
     // 检查所有图片是否已加载
     function checkAllImagesLoaded() {
         if (loadedImages === totalImages) {
@@ -1054,30 +1054,30 @@ function displayResults(results) {
             }
         }
     }
-    
+
     // 设置图片路径并添加错误处理
     function setImageWithFallback(imgId, sealNumber) {
         const img = document.getElementById(imgId);
-        
+
         // 图片加载成功处理
-        img.onload = function() {
+        img.onload = function () {
             loadedImages++;
             checkAllImagesLoaded();
         };
-        
+
         // 针对移动设备的优化设置
         if (window.setOptimizedImageSrc && 'IntersectionObserver' in window) {
             // 使用优化的图片加载方式
             window.setOptimizedImageSrc(imgId, `seal/${sealNumber}.png`);
-            
+
             // 仍然需要错误处理
-            img.onerror = function() {
+            img.onerror = function () {
                 this.onerror = null;
                 this.src = `./seal/${sealNumber}.png`;
-                this.onerror = function() {
+                this.onerror = function () {
                     this.onerror = null;
                     this.src = `../seal/${sealNumber}.png`;
-                    this.onerror = function() {
+                    this.onerror = function () {
                         handleImageError(this);
                     };
                 };
@@ -1085,26 +1085,26 @@ function displayResults(results) {
         } else {
             // 传统图片加载方式
             img.src = `seal/${sealNumber}.png`;
-            img.onerror = function() {
+            img.onerror = function () {
                 this.onerror = null; // 防止循环触发错误
                 // 尝试其他路径
                 this.src = `./seal/${sealNumber}.png`;
-                this.onerror = function() {
+                this.onerror = function () {
                     this.onerror = null;
                     this.src = `../seal/${sealNumber}.png`;
-                    this.onerror = function() {
+                    this.onerror = function () {
                         handleImageError(this);
                     };
                 };
             };
         }
     }
-    
+
     // 主印记
     document.getElementById("main-name").textContent = `主印记·${results.main.toneName}${results.main.sealName}`;
     setImageWithFallback("main-img", results.main.seal);
     document.getElementById("kin-info").textContent = `${results.main.kin}`;
-    
+
     // 主印记描述
     const kinDescElement = document.getElementById("kin-desc");
     if (results.main.description && results.main.description.trim() !== '') {
@@ -1113,11 +1113,11 @@ function displayResults(results) {
     } else {
         document.querySelector('.description-section').style.display = 'none';
     }
-    
+
     // 指引位
     document.getElementById("guide-name").textContent = `指引·${results.guide.toneName}${results.guide.sealName}`;
     setImageWithFallback("guide-img", results.guide.seal);
-    
+
     // 添加指引位的Kin信息
     if (!document.getElementById("guide-info")) {
         const guideInfoElement = document.createElement("div");
@@ -1126,11 +1126,11 @@ function displayResults(results) {
         document.querySelector(".seal.guide").appendChild(guideInfoElement);
     }
     document.getElementById("guide-info").textContent = `${results.guide.kin}`;
-    
+
     // 挑战位
     document.getElementById("challenge-name").textContent = `挑战·${results.challenge.toneName}${results.challenge.sealName}`;
     setImageWithFallback("challenge-img", results.challenge.seal);
-    
+
     // 添加挑战位的Kin信息
     if (!document.getElementById("challenge-info")) {
         const challengeInfoElement = document.createElement("div");
@@ -1139,11 +1139,11 @@ function displayResults(results) {
         document.querySelector(".seal.challenge").appendChild(challengeInfoElement);
     }
     document.getElementById("challenge-info").textContent = `${results.challenge.kin}`;
-    
+
     // 支持位
     document.getElementById("support-name").textContent = `支持·${results.support.toneName}${results.support.sealName}`;
     setImageWithFallback("support-img", results.support.seal);
-    
+
     // 添加支持位的Kin信息
     if (!document.getElementById("support-info")) {
         const supportInfoElement = document.createElement("div");
@@ -1152,11 +1152,11 @@ function displayResults(results) {
         document.querySelector(".seal.support").appendChild(supportInfoElement);
     }
     document.getElementById("support-info").textContent = `${results.support.kin}`;
-    
+
     // 推动位
     document.getElementById("push-name").textContent = `推动·${results.push.toneName}${results.push.sealName}`;
     setImageWithFallback("push-img", results.push.seal);
-    
+
     // 添加推动位的Kin信息
     if (!document.getElementById("push-info")) {
         const pushInfoElement = document.createElement("div");
@@ -1165,7 +1165,7 @@ function displayResults(results) {
         document.querySelector(".seal.push").appendChild(pushInfoElement);
     }
     document.getElementById("push-info").textContent = `${results.push.kin}`;
-    
+
     // 波符
     document.getElementById("wave-name").textContent = `波符·${results.wave.sealName}`;
     document.getElementById("wave-info").textContent = `第${results.wave.waveDay}天`;

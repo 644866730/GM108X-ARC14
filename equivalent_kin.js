@@ -142,17 +142,17 @@ function gregorianToKin(year, month, day) {
     let y = year;
     while (y > 2117) y -= 52;
     while (y < 1858) y += 52;
-    
+
     if (!(y in YEAR_NUMS)) {
         throw new Error(`年份 ${year} 超出支持范围(1858-2117)`);
     }
-    
+
     const yearValue = YEAR_NUMS[y];
     const monthValue = MONTH_NUMS[month];
     if (monthValue === undefined) {
         throw new Error(`无效月份: ${month}`);
     }
-    
+
     const s = (yearValue + monthValue + day) % 260;
     return s === 0 ? 260 : s;
 }
@@ -179,6 +179,28 @@ function findCoordInMatrix(matrix, kinValue) {
 }
 
 /**
+ * 在矩阵的卓尔金历区域内查找 KIN 值的坐标
+ * 卓尔金历区域范围：V5-V17, H1-H21
+ * 同一个 KIN 值可能在矩阵中出现多次，此函数确保只返回卓尔金历区域内的坐标
+ */
+function findCoordInTzolkinRegion(matrix, kinValue) {
+    for (const [key, value] of Object.entries(matrix)) {
+        if (value === kinValue) {
+            const [v, h] = key.split(',');
+            // 从 'V5' 和 'H1' 格式中提取数字
+            const vNum = parseInt(v.replace('V', ''));
+            const hNum = parseInt(h.replace('H', ''));
+            // 检查是否在卓尔金历区域内 (V5-V17, H1-H21)
+            if (vNum >= 5 && vNum <= 17 && hNum >= 1 && hNum <= 21) {
+                return [v, h];
+            }
+        }
+    }
+    // 如果在卓尔金历区域内找不到，返回 null
+    return null;
+}
+
+/**
  * 计算对等 KIN
  * @param {number} year - 年份
  * @param {number} month - 月份 (1-12)
@@ -197,71 +219,71 @@ function calculateEquivalentKin(year, month, day) {
                 equivalentDesc: '矩阵数据未加载'
             };
         }
-        
+
         // 获取 13 月亮历日期
         const lunarInfo = getLunar13Info(year, month, day);
         if (lunarInfo.error) {
             throw new Error(lunarInfo.error);
         }
-        
+
         const lunarDateShort = lunarInfo.lunarDateShort;
         const lunarCoord = MATRICES.calendar[lunarDateShort];
-        
+
         if (!lunarCoord) {
             throw new Error(`未在日历矩阵中找到 13 月亮历日期 ${lunarDateShort} 的坐标`);
         }
-        
+
         // 获取主 KIN
         const mainKin = gregorianToKin(year, month, day);
-        
+
         // 第一步：在 13 月亮历坐标处获取三个矩阵的值
         const step1Space = getMatrixValue(MATRICES.space, lunarCoord);
         const step1Time = getMatrixValue(MATRICES.time, lunarCoord);
         const step1Sametime = getMatrixValue(MATRICES.sametime, lunarCoord);
-        
+
         if (!step1Space || !step1Time || !step1Sametime) {
             throw new Error(`在坐标 ${lunarCoord} 处缺少矩阵数据`);
         }
-        
+
         // 第二步：在空间矩阵中找到主 KIN 的坐标
         const spaceCoord = findCoordInMatrix(MATRICES.space, mainKin);
         if (!spaceCoord) {
             throw new Error(`空间矩阵中找不到主印记 KIN ${mainKin}`);
         }
-        
+
         const step2Space = getMatrixValue(MATRICES.space, spaceCoord);
         const step2Time = getMatrixValue(MATRICES.time, spaceCoord);
         const step2Sametime = getMatrixValue(MATRICES.sametime, spaceCoord);
-        
+
         if (!step2Space || !step2Time || !step2Sametime) {
             throw new Error(`在坐标 ${spaceCoord} 处缺少矩阵数据`);
         }
-        
-        // 第三步：在共时矩阵中找到主 KIN 的坐标
-        const sametimeCoord = findCoordInMatrix(MATRICES.sametime, mainKin);
+
+        // 第三步：在共时矩阵的卓尔金历区域(V5-V17, H1-H21)内找到主 KIN 的坐标
+        const sametimeCoord = findCoordInTzolkinRegion(MATRICES.sametime, mainKin);
         if (!sametimeCoord) {
-            throw new Error(`共时矩阵中找不到主印记 KIN ${mainKin}`);
+            throw new Error(`共时矩阵的卓尔金历区域(V5-V17,H1-H21)内找不到主印记 KIN ${mainKin}`);
         }
-        
+
         const step3Space = getMatrixValue(MATRICES.space, sametimeCoord);
         const step3Time = getMatrixValue(MATRICES.time, sametimeCoord);
         const step3Sametime = getMatrixValue(MATRICES.sametime, sametimeCoord);
-        
+
         if (!step3Space || !step3Time || !step3Sametime) {
             throw new Error(`在坐标 ${sametimeCoord} 处缺少矩阵数据`);
         }
-        
+
         // 计算总和
         const totalSum = step1Space + step1Time + step1Sametime +
-                        step2Space + step2Time + step2Sametime +
-                        step3Space + step3Time + step3Sametime;
-        
+            step2Space + step2Time + step2Sametime +
+            step3Space + step3Time + step3Sametime;
+
         // 归约到 1-260 范围
         let equivalentKin = totalSum % 260;
         if (equivalentKin === 0) equivalentKin = 260;
-        
+
         const { tone, seal } = kinToToneSeal(equivalentKin);
-        
+
         return {
             equivalentKin: equivalentKin,
             equivalentTone: tone,

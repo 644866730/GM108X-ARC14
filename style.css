@@ -278,7 +278,7 @@ h2 {
 
 .calendar-cell-line {
     color: rgba(250, 244, 255, 0.95);
-    font-size: clamp(0.68rem, 0.55rem + 0.55vw, 0.92rem);
+    font-size: clamp(0.74rem, 0.6rem + 0.6vw, 1rem);
     line-height: 1.25;
     letter-spacing: 0.01em;
     word-break: break-word;
@@ -287,7 +287,7 @@ h2 {
 
 .calendar-cell-year {
     color: #ffd27a;
-    font-size: clamp(0.82rem, 0.65rem + 0.8vw, 1.2rem);
+    font-size: clamp(0.88rem, 0.7rem + 0.85vw, 1.3rem);
     line-height: 1.15;
     font-weight: 700;
     margin-bottom: 2px;
@@ -296,20 +296,20 @@ h2 {
 .calendar-cell-note {
     margin-top: 2px;
     color: rgba(255, 223, 152, 0.94);
-    font-size: clamp(0.62rem, 0.52rem + 0.35vw, 0.8rem);
+    font-size: clamp(0.66rem, 0.55rem + 0.4vw, 0.85rem);
     line-height: 1.25;
     text-align: center;
 }
 
 .calendar-cell-main {
-    font-size: clamp(0.82rem, 0.65rem + 0.8vw, 1.2rem);
+    font-size: clamp(0.88rem, 0.7rem + 0.85vw, 1.3rem);
     line-height: 1.15;
     font-weight: 700;
     color: rgba(250, 244, 255, 0.95);
 }
 
 .calendar-cell-kin {
-    font-size: clamp(0.82rem, 0.65rem + 0.8vw, 1.2rem);
+    font-size: clamp(0.88rem, 0.7rem + 0.85vw, 1.3rem);
     line-height: 1.15;
     font-weight: 700;
     color: rgba(250, 244, 255, 0.95);

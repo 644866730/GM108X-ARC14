@@ -663,7 +663,7 @@ button:active {
 /* 设备方向特定样式 */
 .mobile-device.portrait-mode .seal-grid {
     grid-template-areas:
-        "guide"
+        "guide-row"
         "middle"
         "push"
         "desc"
@@ -673,7 +673,7 @@ button:active {
 
 .mobile-device.landscape-mode .seal-grid {
     grid-template-areas:
-        "guide middle push"
+        "guide-row middle push"
         "desc desc desc"
         "additional additional additional";
     grid-template-columns: 1fr 2fr 1fr;

@@ -494,7 +494,8 @@ function buildMayaCalendarQuickSummary(year, month, day) {
     const mayaYearKin = gregorianToKin(mayaYearStart, 7, 26);
     const mayaYearInfo = getMayaPanelMainInfo(mayaYearKin);
 
-    let monthWeekLine = "";
+    let monthLine = "";
+    let weekLine = "";
     let dayLine = "";
     let noteLine = "";
 
@@ -504,7 +505,8 @@ function buildMayaCalendarQuickSummary(year, month, day) {
     );
 
     if (isDayOutOfTime) {
-        monthWeekLine = "\u65e0\u65f6\u95f4\u65e5";
+        monthLine = "\u65e0\u65f6\u95f4\u65e5";
+        weekLine = "";
         dayLine = "";
         noteLine = "\u6bcf\u5e747\u670825\u65e5\u4e3a\u65e0\u65f6\u95f4\u65e5";
     } else if (typeof getLunar13Info === "function") {
@@ -525,19 +527,21 @@ function buildMayaCalendarQuickSummary(year, month, day) {
             const dayIndex = ((lunarDay - 1) % 7) + 1;
             const dayName = MAYA_PANEL_DAY_NAMES[dayIndex - 1] || `\u7b2c${dayIndex}\u5929`;
 
-            monthWeekLine = `${monthName} ${weekName}`.trim();
+            monthLine = monthName;
+            weekLine = weekName;
             dayLine = dayName;
             noteLine = `13\u6708\u4eae\u5386\uff1a${lunarMonth}\u6708${lunarDay}\u65e5`;
         } else {
-            monthWeekLine = "\u65e0\u6cd5\u83b7\u53d613\u6708\u4eae\u5386\u4fe1\u606f";
+            monthLine = "\u65e0\u6cd5\u83b7\u53d613\u6708\u4eae\u5386\u4fe1\u606f";
         }
     } else {
-        monthWeekLine = "\u7f3a\u5c11 getLunar13Info \u51fd\u6570";
+        monthLine = "\u7f3a\u5c11 getLunar13Info \u51fd\u6570";
     }
 
     return {
         yearLine: `${mayaYearInfo.toneName}${mayaYearInfo.sealName}\u5e74`,
-        monthWeekLine,
+        monthLine,
+        weekLine,
         dayLine,
         noteLine,
         mainLine: `${mainInfo.toneName}${mainInfo.sealName}`,
@@ -547,20 +551,22 @@ function buildMayaCalendarQuickSummary(year, month, day) {
 
 function updateCalendarQuickCard(year, month, day) {
     const yearElement = document.getElementById("summary-year");
-    const monthWeekElement = document.getElementById("summary-month-week");
+    const monthElement = document.getElementById("summary-month");
+    const weekElement = document.getElementById("summary-week");
     const dayElement = document.getElementById("summary-day");
     const noteElement = document.getElementById("summary-note");
     const mainElement = document.getElementById("summary-main");
     const kinElement = document.getElementById("summary-kin");
 
-    if (!yearElement || !monthWeekElement || !dayElement || !noteElement || !mainElement || !kinElement) {
+    if (!yearElement || !monthElement || !weekElement || !dayElement || !noteElement || !mainElement || !kinElement) {
         return;
     }
 
     const summary = buildMayaCalendarQuickSummary(year, month, day);
 
     yearElement.textContent = summary.yearLine;
-    monthWeekElement.textContent = summary.monthWeekLine;
+    monthElement.textContent = summary.monthLine;
+    weekElement.textContent = summary.weekLine;
     dayElement.textContent = summary.dayLine;
     mainElement.textContent = summary.mainLine;
     kinElement.textContent = summary.kinLine;

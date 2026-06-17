@@ -197,7 +197,7 @@ button:hover {
 /* 底部附加信息样式 */
 .additional-info {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 30px;
     width: 100%;
     margin-top: 20px;
@@ -273,7 +273,7 @@ button:hover {
     height: auto;
     max-height: var(--img-max-height, 150px);
     object-fit: contain;
-    border-radius: 50%;
+    border-radius: 8px;
     border: 1px solid #ddd;
     padding: 5px;
     background-color: white;
@@ -361,6 +361,7 @@ img[src] {
     
     .seal img {
         max-height: 120px;
+        border-radius: 6px;
     }
     
     .seal.main img {
@@ -426,12 +427,13 @@ img[src] {
     
     .additional-info {
         grid-area: additional;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     }
     
     /* 调整图腾大小 */
     .seal img {
         max-height: var(--mobile-img-height);
+        border-radius: 5px;
     }
     
     .seal.main img {

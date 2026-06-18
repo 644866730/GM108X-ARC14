@@ -15,52 +15,72 @@
 <body class="test-page">
     <div class="container test-container">
         <header class="test-hero">
-            <p class="test-kicker">天赋唤醒系统</p>
-            <h1>测一测你的天赋原型</h1>
-            <p class="test-intro">四大版本，每版 5 题。每一题对应一个能量中心，完成后生成你的五宫格天赋画像。</p>
+            <p class="test-kicker">测一测</p>
+            <h1>9.9 元天赋初解读</h1>
+            <p class="test-intro">包含：玛雅图腾 · 天赋关键词 · 水晶建议 · 塔罗寄语</p>
+            <a class="hero-cta" href="#contact-qr">立即解锁我的天赋说明书</a>
         </header>
+
+        <section class="offer-rows" aria-label="天赋解码套餐">
+            <article class="offer-row offer-student">
+                <div class="offer-icon">🎓</div>
+                <div class="offer-copy">
+                    <span class="offer-title">[学生版]</span>
+                    <span class="offer-subtitle">塔罗深度解读 + 天然水晶手串</span>
+                </div>
+                <div class="offer-price">128 元</div>
+                <a class="offer-action" href="#contact-qr">[预约]</a>
+            </article>
+
+            <article class="offer-row offer-business">
+                <div class="offer-icon">💼</div>
+                <div class="offer-copy">
+                    <span class="offer-title">[商业版]</span>
+                    <span class="offer-subtitle">事业破局 · 财富天赋解码</span>
+                </div>
+                <div class="offer-price">298 元起</div>
+                <a class="offer-action" href="#contact-qr">[预约]</a>
+            </article>
+
+            <article class="offer-row offer-destiny">
+                <div class="offer-icon">🌿</div>
+                <div class="offer-copy">
+                    <span class="offer-title">[天命版]</span>
+                    <span class="offer-subtitle">灵魂使命 · 天赋事业解码</span>
+                </div>
+                <div class="offer-price">298 元起</div>
+                <a class="offer-action" href="#contact-qr">[预约]</a>
+            </article>
+
+            <article class="offer-row offer-growth">
+                <div class="offer-icon">🍃</div>
+                <div class="offer-copy">
+                    <span class="offer-title">[成长版]</span>
+                    <span class="offer-subtitle">内在觉醒 · 生命课题解码</span>
+                </div>
+                <div class="offer-price">298 元起</div>
+                <a class="offer-action" href="#contact-qr">[预约]</a>
+            </article>
+        </section>
 
         <main>
             <section class="test-panel" aria-labelledby="version-title">
                 <div class="section-heading">
                     <h2 id="version-title">选择测试版本</h2>
-                    <p>按你当前最关心的场景开始。</p>
+                    <p>按你当前最关心的场景开始，点击后进入独立答题页。</p>
                 </div>
                 <div class="version-grid" id="version-grid"></div>
             </section>
 
-            <section class="test-panel quiz-panel" id="quiz-panel" aria-labelledby="quiz-title" hidden>
+            <section class="qr-section" id="contact-qr" aria-labelledby="qr-title">
                 <div class="section-heading">
-                    <h2 id="quiz-title">开始答题</h2>
-                    <p id="quiz-guide"></p>
+                    <h2 id="qr-title">微信扫码预约一对一解读</h2>
+                    <p>【你的店名】 · 【你的地址】</p>
                 </div>
-                <form id="quiz-form" class="quiz-form"></form>
-                <div class="quiz-actions">
-                    <button type="button" class="secondary-action" id="reset-test">重新选择</button>
-                    <button type="button" id="show-result">生成五宫格画像</button>
+                <div class="qr-card">
+                    <img src="images/wx_1.jpg" alt="微信二维码">
                 </div>
-                <div class="status-message error" id="quiz-error" role="alert"></div>
-            </section>
-
-            <section class="test-panel portrait-panel" id="portrait-panel" aria-labelledby="portrait-title" hidden>
-                <div class="section-heading">
-                    <p class="test-kicker" id="portrait-version"></p>
-                    <h2 id="portrait-title">五宫格天赋画像</h2>
-                    <p>你的结果来自五个脉轮题目，每格对应一题。</p>
-                </div>
-                <div class="portrait-grid" id="portrait-grid"></div>
-
-                <div class="conversion-card">
-                    <div>
-                        <p class="test-kicker">9.9元天赋说明书</p>
-                        <h3>解锁你的完整图腾说明书</h3>
-                        <p>包含五宫格图腾解析、水晶建议、行动提醒，以及生日对应的玛雅本命盘入口。</p>
-                    </div>
-                    <div class="conversion-actions">
-                        <a class="test-link-button" href="contact.html">扫码咨询</a>
-                        <a class="test-link-button primary" href="index.html">输入生日，激活我的天赋通道</a>
-                    </div>
-                </div>
+                <p class="qr-note">科学娱乐 · 天赋指引非命运定论</p>
             </section>
         </main>
     </div>

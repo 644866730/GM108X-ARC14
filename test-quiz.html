@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#4a148c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>天赋测试 - 玛雅天赋印记</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="test-page quiz-page">
+    <a class="back-to-test" href="test.html">← 返回</a>
+    <div class="container test-container quiz-container">
+        <header class="quiz-hero">
+            <p class="test-kicker" id="quiz-version-kicker">天赋测试</p>
+            <h1 id="quiz-title">开始答题</h1>
+            <p id="quiz-guide" class="test-intro"></p>
+        </header>
+
+        <main>
+            <section class="test-panel quiz-panel" id="quiz-panel" aria-labelledby="quiz-title">
+                <form id="quiz-form" class="quiz-form"></form>
+                <div class="quiz-actions">
+                    <a class="test-link-button" href="test.html">重新选择</a>
+                    <button type="button" id="show-result">生成五宫格画像</button>
+                </div>
+                <div class="status-message error" id="quiz-error" role="alert"></div>
+            </section>
+
+            <section class="test-panel portrait-panel" id="portrait-panel" aria-labelledby="portrait-title" hidden>
+                <div class="section-heading">
+                    <p class="test-kicker" id="portrait-version"></p>
+                    <h2 id="portrait-title">五宫格天赋画像</h2>
+                    <p>你的结果来自五个脉轮题目，每格对应一题。</p>
+                </div>
+                <div class="portrait-grid" id="portrait-grid"></div>
+
+                <div class="conversion-card">
+                    <div>
+                        <p class="test-kicker">9.9元天赋初解读</p>
+                        <h3>解锁你的完整图腾说明书</h3>
+                        <p>包含：玛雅图腾 · 天赋关键词 · 水晶建议 · 塔罗寄语。</p>
+                    </div>
+                    <div class="conversion-actions">
+                        <a class="test-link-button primary" href="#contact-qr">立即解锁</a>
+                        <a class="test-link-button" href="#contact-qr">预约</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="qr-section" id="contact-qr" aria-labelledby="qr-title">
+                <div class="section-heading">
+                    <h2 id="qr-title">微信扫码预约一对一解读</h2>
+                    <p>【你的店名】 · 【你的地址】</p>
+                </div>
+                <div class="qr-card">
+                    <img src="images/wx_1.jpg" alt="微信二维码">
+                </div>
+                <p class="qr-note">科学娱乐 · 天赋指引非命运定论</p>
+            </section>
+        </main>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="nav-icon">🔍</i>
+            <span>星符查询</span>
+        </a>
+        <a href="test.html" class="nav-item active">
+            <i class="nav-icon">🧭</i>
+            <span>测一测</span>
+        </a>
+        <a href="learn.html" class="nav-item">
+            <i class="nav-icon">📘</i>
+            <span>学一学</span>
+        </a>
+        <a href="contact.html" class="nav-item">
+            <i class="nav-icon">📞</i>
+            <span>联系我</span>
+        </a>
+    </div>
+
+    <script src="test.js"></script>
+</body>
+
+</html>

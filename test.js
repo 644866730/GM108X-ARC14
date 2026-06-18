@@ -342,19 +342,36 @@ const TOTEM_DESCRIPTIONS = {
 let activeVersionKey = "boss";
 
 document.addEventListener("DOMContentLoaded", () => {
-    renderVersionCards();
-    bindActions();
+    initBottomNavEffects();
+
+    if (document.getElementById("version-grid")) {
+        renderVersionCards();
+    }
+
+    if (document.getElementById("quiz-form")) {
+        initQuizPage();
+    }
 });
 
-function bindActions() {
-    document.getElementById("show-result").addEventListener("click", showResult);
-    document.getElementById("reset-test").addEventListener("click", () => {
-        document.getElementById("quiz-panel").hidden = true;
-        document.getElementById("portrait-panel").hidden = true;
-        document.getElementById("version-title").scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-    document.getElementById("quiz-form").addEventListener("change", syncSelectedAnswers);
+function initQuizPage() {
+    const params = new URLSearchParams(window.location.search);
+    const requestedVersion = params.get("version");
+    activeVersionKey = TEST_DATA[requestedVersion] ? requestedVersion : "boss";
+    const version = TEST_DATA[activeVersionKey];
 
+    const title = document.getElementById("quiz-title");
+    const guide = document.getElementById("quiz-guide");
+    const kicker = document.getElementById("quiz-version-kicker");
+    if (title) title.textContent = version.title;
+    if (guide) guide.textContent = version.guide;
+    if (kicker) kicker.textContent = "五题天赋测试";
+
+    renderQuestions(version);
+    document.getElementById("show-result").addEventListener("click", showResult);
+    document.getElementById("quiz-form").addEventListener("change", syncSelectedAnswers);
+}
+
+function initBottomNavEffects() {
     document.querySelectorAll(".bottom-nav .nav-item").forEach(item => {
         item.addEventListener("click", function () {
             this.classList.add("nav-clicked");
@@ -375,26 +392,10 @@ function renderVersionCards() {
     `).join("");
 
     versionGrid.querySelectorAll(".version-card").forEach(card => {
-        card.addEventListener("click", () => startQuiz(card.dataset.version));
+        card.addEventListener("click", () => {
+            window.location.href = `test-quiz.html?version=${encodeURIComponent(card.dataset.version)}`;
+        });
     });
-}
-
-function startQuiz(versionKey) {
-    activeVersionKey = versionKey;
-    const version = TEST_DATA[activeVersionKey];
-    document.querySelectorAll(".version-card").forEach(card => {
-        card.classList.toggle("active", card.dataset.version === activeVersionKey);
-    });
-
-    document.getElementById("quiz-title").textContent = version.title;
-    document.getElementById("quiz-guide").textContent = version.guide;
-    document.getElementById("quiz-error").textContent = "";
-    document.getElementById("quiz-error").style.display = "none";
-    document.getElementById("portrait-panel").hidden = true;
-
-    renderQuestions(version);
-    document.getElementById("quiz-panel").hidden = false;
-    document.getElementById("quiz-panel").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function renderQuestions(version) {
@@ -408,21 +409,26 @@ function renderQuestions(version) {
                 <label class="answer-option">
                     <input type="radio" name="q${questionIndex}" value="${answer.totem}">
                     <span class="answer-letter">${letter}</span>
-                    <span class="answer-text">${answer.label}</span>
-                    <span class="answer-totem ${totem.color}">${answer.totem}</span>
+                    <span class="answer-content">
+                        <span class="answer-text">${answer.label}</span>
+                        <span class="answer-totem ${totem.color}">${answer.totem}</span>
+                    </span>
                 </label>
             `;
         }).join("");
 
         return `
-            <fieldset class="question-card">
-                <legend>
-                    <span>Q${questionIndex + 1}</span>
-                    <strong>${chakra.family}（${chakra.chakra}）</strong>
-                </legend>
+            <section class="question-card" aria-labelledby="question-${questionIndex + 1}-title">
+                <div class="question-header">
+                    <span class="question-number">Q${questionIndex + 1}</span>
+                    <div>
+                        <strong id="question-${questionIndex + 1}-title">${chakra.family}</strong>
+                        <span>${chakra.chakra}</span>
+                    </div>
+                </div>
                 <p>${question.text}</p>
                 <div class="answer-grid">${options}</div>
-            </fieldset>
+            </section>
         `;
     }).join("");
     syncSelectedAnswers();

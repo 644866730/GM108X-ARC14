@@ -1918,3 +1918,85 @@ body.learning-page::before {
         min-height: auto;
     }
 }
+
+/* 测一测入口静态图页 */
+.test-splash-page {
+    margin: 0;
+    min-height: 100dvh;
+    padding-bottom: 0;
+    background: #06101f;
+    overflow-x: hidden;
+}
+
+.test-splash-shell {
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0;
+}
+
+.test-splash-art {
+    position: relative;
+    width: min(100vw, 760px);
+    line-height: 0;
+}
+
+.test-splash-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.test-splash-qr {
+    position: absolute;
+    left: 58.8%;
+    top: 71.0%;
+    width: 29.8%;
+    height: 20.8%;
+    object-fit: contain;
+    border-radius: 1.4%;
+    background: #fff;
+}
+
+.test-splash-button {
+    position: absolute;
+    left: 6.6%;
+    top: 73.2%;
+    width: 28.4%;
+    height: 6.9%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.test-splash-button span {
+    color: #fff;
+    font-size: clamp(1.55rem, 6.4vw, 3.45rem);
+    font-weight: 900;
+    line-height: 1;
+    text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.95),
+        0 0 18px rgba(185, 84, 255, 0.95),
+        0 0 30px rgba(42, 188, 255, 0.88);
+    animation: testButtonFloat 1.8s ease-in-out infinite;
+}
+
+.test-splash-button:focus-visible {
+    outline: 3px solid rgba(255, 224, 102, 0.9);
+    outline-offset: 3px;
+}
+
+@keyframes testButtonFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8%);
+    }
+}

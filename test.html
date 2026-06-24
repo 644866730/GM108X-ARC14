@@ -5,106 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#4a148c">
+    <meta name="theme-color" content="#06101f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>测一测 - 玛雅天赋印记</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="test-page">
-    <div class="container test-container">
-        <header class="test-hero">
-            <p class="test-kicker">测一测</p>
-            <h1>9.9 元天赋初解读</h1>
-            <p class="test-intro">包含：玛雅图腾 · 天赋关键词 · 水晶建议 · 塔罗寄语</p>
-            <a class="hero-cta" href="#contact-qr">立即解锁我的天赋说明书</a>
-        </header>
-
-        <section class="offer-rows" aria-label="天赋解码套餐">
-            <article class="offer-row offer-student">
-                <div class="offer-icon">🎓</div>
-                <div class="offer-copy">
-                    <span class="offer-title">[学生版]</span>
-                    <span class="offer-subtitle">塔罗深度解读 + 天然水晶手串</span>
-                </div>
-                <div class="offer-price">128 元</div>
-                <a class="offer-action" href="#contact-qr">[预约]</a>
-            </article>
-
-            <article class="offer-row offer-business">
-                <div class="offer-icon">💼</div>
-                <div class="offer-copy">
-                    <span class="offer-title">[商业版]</span>
-                    <span class="offer-subtitle">事业破局 · 财富天赋解码</span>
-                </div>
-                <div class="offer-price">298 元起</div>
-                <a class="offer-action" href="#contact-qr">[预约]</a>
-            </article>
-
-            <article class="offer-row offer-destiny">
-                <div class="offer-icon">🌿</div>
-                <div class="offer-copy">
-                    <span class="offer-title">[天命版]</span>
-                    <span class="offer-subtitle">灵魂使命 · 天赋事业解码</span>
-                </div>
-                <div class="offer-price">298 元起</div>
-                <a class="offer-action" href="#contact-qr">[预约]</a>
-            </article>
-
-            <article class="offer-row offer-growth">
-                <div class="offer-icon">🍃</div>
-                <div class="offer-copy">
-                    <span class="offer-title">[成长版]</span>
-                    <span class="offer-subtitle">内在觉醒 · 生命课题解码</span>
-                </div>
-                <div class="offer-price">298 元起</div>
-                <a class="offer-action" href="#contact-qr">[预约]</a>
-            </article>
-        </section>
-
-        <main>
-            <section class="test-panel" aria-labelledby="version-title">
-                <div class="section-heading">
-                    <h2 id="version-title">选择测试版本</h2>
-                    <p>按你当前最关心的场景开始，点击后进入独立答题页。</p>
-                </div>
-                <div class="version-grid" id="version-grid"></div>
-            </section>
-
-            <section class="qr-section" id="contact-qr" aria-labelledby="qr-title">
-                <div class="section-heading">
-                    <h2 id="qr-title">微信扫码预约一对一解读</h2>
-                    <p>【你的店名】 · 【你的地址】</p>
-                </div>
-                <div class="qr-card">
-                    <img src="images/wx_1.jpg" alt="微信二维码">
-                </div>
-                <p class="qr-note">科学娱乐 · 天赋指引非命运定论</p>
-            </section>
-        </main>
-    </div>
-
-    <div class="bottom-nav">
-        <a href="index.html" class="nav-item">
-            <i class="nav-icon">🔍</i>
-            <span>星符查询</span>
-        </a>
-        <a href="test.html" class="nav-item active">
-            <i class="nav-icon">🧭</i>
-            <span>测一测</span>
-        </a>
-        <a href="learn.html" class="nav-item">
-            <i class="nav-icon">📘</i>
-            <span>学一学</span>
-        </a>
-        <a href="contact.html" class="nav-item">
-            <i class="nav-icon">📞</i>
-            <span>联系我</span>
-        </a>
-    </div>
-
-    <script src="test.js"></script>
+<body class="test-splash-page">
+    <main class="test-splash-shell" aria-label="测一测入口">
+        <div class="test-splash-art">
+            <img class="test-splash-image" src="images/test.png" alt="撞南墙之后，你的路怎么走？测一测找到破局点。">
+            <img class="test-splash-qr" src="images/vx_3.png" alt="微信二维码">
+            <a class="test-splash-button" href="test-start.html" aria-label="进入测一测">
+                <span>测一测</span>
+            </a>
+        </div>
+    </main>
 </body>
 
 </html>

@@ -351,6 +351,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("quiz-form")) {
         initQuizPage();
     }
+
+    if (document.getElementById("portrait-grid") && document.body.classList.contains("result-page")) {
+        initResultPage();
+    }
 });
 
 function initQuizPage() {
@@ -455,12 +459,39 @@ function showResult() {
         return;
     }
 
-    const version = TEST_DATA[activeVersionKey];
+    const resultParams = new URLSearchParams();
+    resultParams.set("version", activeVersionKey);
+    resultParams.set("answers", selections.join(","));
+    window.location.href = `test-result.html?${resultParams.toString()}`;
+}
+
+function initResultPage() {
+    const params = new URLSearchParams(window.location.search);
+    const requestedVersion = params.get("version");
+    const versionKey = TEST_DATA[requestedVersion] ? requestedVersion : "boss";
+    const selections = (params.get("answers") || "").split(",").filter(Boolean);
+    const fallbackSelections = TEST_DATA[versionKey].questions.map(question => question.answers[0].totem);
+    const normalizedSelections = CHAKRAS.map((_, index) => {
+        const candidate = selections[index];
+        return TOTEMS[candidate] ? candidate : fallbackSelections[index];
+    });
+
+    activeVersionKey = versionKey;
+    const backLink = document.getElementById("result-back-link");
+    if (backLink) {
+        backLink.href = `test-quiz.html?version=${encodeURIComponent(versionKey)}`;
+    }
+
+    renderResult(versionKey, normalizedSelections);
+}
+
+function renderResult(versionKey, selections) {
+    const version = TEST_DATA[versionKey];
     document.getElementById("portrait-version").textContent = version.title;
     document.getElementById("portrait-grid").innerHTML = selections.map((totemName, index) => {
         const chakra = CHAKRAS[index];
         const totem = TOTEMS[totemName];
-        const description = TOTEM_DESCRIPTIONS[activeVersionKey][totemName];
+        const description = TOTEM_DESCRIPTIONS[versionKey][totemName];
         return `
             <article class="portrait-card ${totem.color}">
                 <div class="portrait-card-top">
@@ -473,9 +504,4 @@ function showResult() {
             </article>
         `;
     }).join("");
-
-    document.getElementById("quiz-error").textContent = "";
-    document.getElementById("quiz-error").style.display = "none";
-    document.getElementById("portrait-panel").hidden = false;
-    document.getElementById("portrait-panel").scrollIntoView({ behavior: "smooth", block: "start" });
 }

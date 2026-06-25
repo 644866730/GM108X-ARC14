@@ -1925,7 +1925,7 @@ body.learning-page::before {
     min-height: 100dvh;
     padding-bottom: 0;
     background: #06101f;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .test-splash-shell {
@@ -1998,5 +1998,29 @@ body.learning-page::before {
 
     50% {
         transform: translateY(-8%);
+    }
+}
+
+@media (max-width: 640px) {
+    .test-splash-shell {
+        min-height: 100dvh;
+        height: 100dvh;
+        overflow: hidden;
+    }
+
+    .test-splash-art {
+        width: 100vw;
+        height: 100dvh;
+        overflow: hidden;
+    }
+
+    .test-splash-image {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+    }
+
+    .test-splash-page .bottom-nav {
+        background: linear-gradient(180deg, transparent, rgba(6, 16, 31, 0.72));
     }
 }

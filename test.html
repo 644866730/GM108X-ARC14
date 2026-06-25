@@ -9,13 +9,19 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>测一测 - 玛雅天赋印记</title>
+    <link rel="preload" as="image" href="images/test-mobile.webp" type="image/webp" media="(max-width: 640px)">
+    <link rel="preload" as="image" href="images/test.webp" type="image/webp" media="(min-width: 641px)">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="test-splash-page">
     <main class="test-splash-shell" aria-label="测一测入口">
         <div class="test-splash-art">
-            <img class="test-splash-image" src="images/test.png" alt="撞南墙之后，你的路怎么走？测一测找到破局点。">
+            <picture class="test-splash-picture">
+                <source srcset="images/test-mobile.webp" type="image/webp" media="(max-width: 640px)">
+                <source srcset="images/test.webp" type="image/webp">
+                <img class="test-splash-image" src="images/test.png" alt="撞南墙之后，你的路怎么走？测一测找到破局点。" fetchpriority="high">
+            </picture>
             <img class="test-splash-qr" src="images/vx_3.png" alt="微信二维码">
             <a class="test-splash-button" href="test-start.html" aria-label="进入测一测">
                 <span>测一测</span>
@@ -41,6 +47,7 @@
             <span>联系我</span>
         </a>
     </div>
+    <script src="cache-register.js"></script>
 </body>
 
 </html>

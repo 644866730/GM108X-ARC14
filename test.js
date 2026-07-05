@@ -86,6 +86,22 @@ const TOTEM_TO_FAMILY = FAMILY_ORDER.reduce((lookup, familyKey) => {
     return lookup;
 }, {});
 
+const QUESTION_THEMES = [
+    { title: "本能与判断", note: "选择最贴近你的第一反应" },
+    { title: "表达与连接", note: "选择你更自然的对外方式" },
+    { title: "关系与行动", note: "选择你更容易进入的状态" },
+    { title: "机会与信号", note: "选择你面对变化时的倾向" },
+    { title: "情绪与根基", note: "选择你稳定自己的方式" }
+];
+
+const ANSWER_SCORE_MATRIX = [
+    ["polar", "core", "signal", "polar"],
+    ["cardinal", "cardinal", "gateway", "signal"],
+    ["gateway", "cardinal", "core", "core"],
+    ["signal", "polar", "gateway", "core"],
+    ["gateway", "polar", "signal", "cardinal"]
+];
+
 const TEST_DATA = {
     boss: {
         icon: "💼",
@@ -462,12 +478,13 @@ function renderVersionCards() {
 function renderQuestions(version) {
     const form = document.getElementById("quiz-form");
     form.innerHTML = version.questions.map((question, questionIndex) => {
-        const chakra = CHAKRAS[questionIndex];
+        const theme = QUESTION_THEMES[questionIndex];
         const options = question.answers.map((answer, answerIndex) => {
             const letter = String.fromCharCode(65 + answerIndex);
+            const familyKey = ANSWER_SCORE_MATRIX[questionIndex][answerIndex];
             return `
                 <label class="answer-option">
-                    <input type="radio" name="q${questionIndex}" value="${answer.totem}">
+                    <input type="radio" name="q${questionIndex}" value="${familyKey}" data-totem="${answer.totem}">
                     <span class="answer-letter">${letter}</span>
                     <span class="answer-content">
                         <span class="answer-text">${answer.label}</span>
@@ -481,8 +498,8 @@ function renderQuestions(version) {
                 <div class="question-header">
                     <span class="question-number">Q${questionIndex + 1}</span>
                     <div>
-                        <strong id="question-${questionIndex + 1}-title">${chakra.family}</strong>
-                        <span>${chakra.chakra}</span>
+                        <strong id="question-${questionIndex + 1}-title">${theme.title}</strong>
+                        <span>${theme.note}</span>
                     </div>
                 </div>
                 <p>${question.text}</p>
@@ -501,12 +518,12 @@ function syncSelectedAnswers() {
 }
 
 function showResult() {
-    const selections = CHAKRAS.map((_, index) => {
+    const familySelections = QUESTION_THEMES.map((_, index) => {
         const selected = document.querySelector(`input[name="q${index}"]:checked`);
         return selected ? selected.value : "";
     });
 
-    if (selections.some(value => !value)) {
+    if (familySelections.some(value => !value)) {
         const error = document.getElementById("quiz-error");
         error.textContent = "请先完成 5 道题，再查看测试结果。";
         error.style.display = "block";
@@ -516,7 +533,7 @@ function showResult() {
 
     const resultParams = new URLSearchParams();
     resultParams.set("version", activeVersionKey);
-    resultParams.set("answers", selections.join(","));
+    resultParams.set("families", familySelections.join(","));
     window.location.href = `test-result.html?${resultParams.toString()}`;
 }
 
@@ -524,12 +541,7 @@ function initResultPage() {
     const params = new URLSearchParams(window.location.search);
     const requestedVersion = params.get("version");
     const versionKey = TEST_DATA[requestedVersion] ? requestedVersion : "boss";
-    const selections = (params.get("answers") || "").split(",").filter(Boolean);
-    const fallbackSelections = TEST_DATA[versionKey].questions.map(question => question.answers[0].totem);
-    const normalizedSelections = CHAKRAS.map((_, index) => {
-        const candidate = selections[index];
-        return TOTEMS[candidate] ? candidate : fallbackSelections[index];
-    });
+    const normalizedFamilies = getNormalizedFamilySelections(params);
 
     activeVersionKey = versionKey;
     const backLink = document.getElementById("result-back-link");
@@ -537,12 +549,31 @@ function initResultPage() {
         backLink.href = `test-quiz.html?version=${encodeURIComponent(versionKey)}`;
     }
 
-    renderResult(versionKey, normalizedSelections);
+    renderResult(versionKey, normalizedFamilies);
 }
 
-function renderResult(versionKey, selections) {
+function getNormalizedFamilySelections(params) {
+    const familySelections = (params.get("families") || "").split(",").filter(Boolean);
+    const legacyTotemSelections = (params.get("answers") || "").split(",").filter(Boolean);
+
+    return QUESTION_THEMES.map((_, index) => {
+        const familyCandidate = familySelections[index];
+        if (FAMILY_DATA[familyCandidate]) {
+            return familyCandidate;
+        }
+
+        const legacyTotem = legacyTotemSelections[index];
+        if (TOTEM_TO_FAMILY[legacyTotem]) {
+            return TOTEM_TO_FAMILY[legacyTotem];
+        }
+
+        return ANSWER_SCORE_MATRIX[index][0];
+    });
+}
+
+function renderResult(versionKey, familySelections) {
     const version = TEST_DATA[versionKey];
-    const result = getFamilyResult(selections);
+    const result = getFamilyResult(familySelections);
     const resultTitle = document.getElementById("portrait-title");
     const resultSummary = document.getElementById("result-summary");
     const resultContainer = document.getElementById("portrait-grid");
@@ -553,14 +584,14 @@ function renderResult(versionKey, selections) {
     resultContainer.innerHTML = renderFamilyResult(result);
 }
 
-function getFamilyResult(selections) {
+function getFamilyResult(familySelections) {
     const counts = FAMILY_ORDER.reduce((score, familyKey) => {
         score[familyKey] = 0;
         return score;
     }, {});
 
-    selections.forEach(totemName => {
-        const familyKey = TOTEM_TO_FAMILY[totemName];
+    familySelections.forEach(selection => {
+        const familyKey = FAMILY_DATA[selection] ? selection : TOTEM_TO_FAMILY[selection];
         if (familyKey) {
             counts[familyKey] += 1;
         }
@@ -568,7 +599,7 @@ function getFamilyResult(selections) {
 
     const maxCount = Math.max(...Object.values(counts));
     const leaders = FAMILY_ORDER.filter(familyKey => counts[familyKey] === maxCount);
-    const isBalanced = selections.length === FAMILY_ORDER.length && FAMILY_ORDER.every(familyKey => counts[familyKey] === 1);
+    const isBalanced = familySelections.length === FAMILY_ORDER.length && FAMILY_ORDER.every(familyKey => counts[familyKey] === 1);
 
     return {
         counts,
@@ -630,7 +661,7 @@ function renderBalancedResult(result) {
                 <span class="family-result-frequency">五大家族各 1 次</span>
             </div>
             <h2>你的家族频率暂时均衡</h2>
-            <p>这组答案显示五个家族都被点亮了一次，当前题库结构下无法只凭频率选出唯一主频家族。</p>
+            <p>这组答案显示五个家族都被点亮了一次，说明你当前的选择比较平均，暂时无法只凭频率选出唯一主频家族。</p>
             <p>下一步需要结合你的生日主印记判断：主印记会告诉你哪一个家族更像你的底层出厂设置，也能帮助你理解当下最该优先激活的天赋通道。</p>
             ${renderFamilyCounts(result.counts, result.leaders)}
             <div class="family-result-actions">

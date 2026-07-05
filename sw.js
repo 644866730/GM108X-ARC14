@@ -1,4 +1,4 @@
-const CACHE_NAME = "maya-static-v20260625-2";
+const CACHE_NAME = "maya-static-v20260705-1";
 const PRECACHE_URLS = [
     "./test.html",
     "./test-start.html",

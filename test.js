@@ -29,6 +29,63 @@ const CHAKRAS = [
     { key: "root", label: "海底轮图腾", family: "通道家族", chakra: "海底轮" }
 ];
 
+const FAMILY_ORDER = ["polar", "cardinal", "core", "signal", "gateway"];
+
+const FAMILY_DATA = {
+    polar: {
+        name: "极性家族",
+        en: "Polar",
+        chakra: "顶轮",
+        totems: ["红蛇", "白狗", "蓝鹰", "黄太阳"],
+        summary: "极性家族代表本能、爱、视野与光。它像一个人的高处天线，帮助你在复杂局面里快速辨认真正重要的方向。",
+        focus: "当这个家族频率突出时，你适合先校准生命力和愿景，再做选择。你的优势来自清醒的直觉、稳定的内在信任，以及把人带向更高视角的能力。",
+        advice: "少用外界标准急着证明自己，多回到身体、心和长期愿景。你的答案通常不是算出来的，而是在你真正安静下来后浮现的。"
+    },
+    cardinal: {
+        name: "基本家族",
+        en: "Cardinal",
+        chakra: "喉轮",
+        totems: ["红龙", "白世界桥", "蓝猴", "黄战士"],
+        summary: "基本家族代表起源、连接、游戏感与提问。它掌管表达和破局，帮助你把内在想法说出来、传出去、变成影响力。",
+        focus: "当这个家族频率突出时，你的天赋会通过语言、关系和观点释放。你适合讲故事、搭桥梁、制造轻松感，也适合提出别人不敢问的问题。",
+        advice: "不要把表达压回去。把想法说清楚，把边界说清楚，把真正的问题问出来，你的通道就会被打开。"
+    },
+    core: {
+        name: "核心家族",
+        en: "Core",
+        chakra: "心轮",
+        totems: ["红地球", "白风", "蓝手", "黄人"],
+        summary: "核心家族代表同步、沟通、实现与自由意志。它像心轮的稳定中轴，让你把感受、判断和行动连成一条清晰路线。",
+        focus: "当这个家族频率突出时，你擅长在真实生活里落地天赋。你不是只停留在想象，而是能跟随节奏、传递信息、亲手完成，并做出属于自己的选择。",
+        advice: "越重要的事，越要回到当下的节奏。别急着被别人带走，先问自己：这一步是否真实、是否可执行、是否由我选择。"
+    },
+    signal: {
+        name: "信号家族",
+        en: "Signal",
+        chakra: "太阳神经丛",
+        totems: ["红天行者", "白镜子", "蓝夜", "黄星星"],
+        summary: "信号家族代表探索、真相、丰盛与美感。它对应太阳神经丛的行动能量，让你通过外部信号判断机会和方向。",
+        focus: "当这个家族频率突出时，你对变化、秩序、直觉和审美特别敏感。你适合去开路、照见问题、相信愿景，也适合把混乱整理成更有美感的作品。",
+        advice: "别忽略那些反复出现的信号。你越敢走出去验证、越敢面对真实，越容易把灵感变成可见成果。"
+    },
+    gateway: {
+        name: "通道家族",
+        en: "Gateway",
+        chakra: "海底轮",
+        totems: ["红月", "白巫师", "蓝风暴", "黄种子"],
+        summary: "通道家族代表净化、临在、变革与生长。它扎在海底轮，提醒你安全感不是静止不变，而是在流动中建立稳定。",
+        focus: "当这个家族频率突出时，你的天赋常通过情绪、时间感、重组力和长期潜能显现。你适合清理旧模式，守住节奏，然后等待种子发芽。",
+        advice: "先稳住根基，再推动改变。允许情绪流动，允许旧结构瓦解，也给新东西足够时间长出来。"
+    }
+};
+
+const TOTEM_TO_FAMILY = FAMILY_ORDER.reduce((lookup, familyKey) => {
+    FAMILY_DATA[familyKey].totems.forEach(totemName => {
+        lookup[totemName] = familyKey;
+    });
+    return lookup;
+}, {});
+
 const TEST_DATA = {
     boss: {
         icon: "💼",
@@ -408,14 +465,12 @@ function renderQuestions(version) {
         const chakra = CHAKRAS[questionIndex];
         const options = question.answers.map((answer, answerIndex) => {
             const letter = String.fromCharCode(65 + answerIndex);
-            const totem = TOTEMS[answer.totem];
             return `
                 <label class="answer-option">
                     <input type="radio" name="q${questionIndex}" value="${answer.totem}">
                     <span class="answer-letter">${letter}</span>
                     <span class="answer-content">
                         <span class="answer-text">${answer.label}</span>
-                        <span class="answer-totem ${totem.color}">${answer.totem}</span>
                     </span>
                 </label>
             `;
@@ -453,7 +508,7 @@ function showResult() {
 
     if (selections.some(value => !value)) {
         const error = document.getElementById("quiz-error");
-        error.textContent = "请先完成 5 道题，再生成五宫格天赋画像。";
+        error.textContent = "请先完成 5 道题，再查看测试结果。";
         error.style.display = "block";
         error.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
@@ -487,21 +542,141 @@ function initResultPage() {
 
 function renderResult(versionKey, selections) {
     const version = TEST_DATA[versionKey];
+    const result = getFamilyResult(selections);
+    const resultTitle = document.getElementById("portrait-title");
+    const resultSummary = document.getElementById("result-summary");
+    const resultContainer = document.getElementById("portrait-grid");
+
     document.getElementById("portrait-version").textContent = version.title;
-    document.getElementById("portrait-grid").innerHTML = selections.map((totemName, index) => {
-        const chakra = CHAKRAS[index];
-        const totem = TOTEMS[totemName];
-        const description = TOTEM_DESCRIPTIONS[versionKey][totemName];
-        return `
-            <article class="portrait-card ${totem.color}">
-                <div class="portrait-card-top">
-                    <span class="chakra-label">${chakra.label}</span>
-                    <span class="family-label">${chakra.family}</span>
-                </div>
-                <img src="seal/${totem.id}.png" alt="${totemName}图腾">
-                <h3>${totemName}</h3>
-                <p>${description}</p>
-            </article>
-        `;
-    }).join("");
+    if (resultTitle) resultTitle.textContent = "测试结果";
+    if (resultSummary) resultSummary.textContent = getResultSummaryText(result);
+    resultContainer.innerHTML = renderFamilyResult(result);
+}
+
+function getFamilyResult(selections) {
+    const counts = FAMILY_ORDER.reduce((score, familyKey) => {
+        score[familyKey] = 0;
+        return score;
+    }, {});
+
+    selections.forEach(totemName => {
+        const familyKey = TOTEM_TO_FAMILY[totemName];
+        if (familyKey) {
+            counts[familyKey] += 1;
+        }
+    });
+
+    const maxCount = Math.max(...Object.values(counts));
+    const leaders = FAMILY_ORDER.filter(familyKey => counts[familyKey] === maxCount);
+    const isBalanced = selections.length === FAMILY_ORDER.length && FAMILY_ORDER.every(familyKey => counts[familyKey] === 1);
+
+    return {
+        counts,
+        leaders,
+        maxCount,
+        isBalanced,
+        isTie: leaders.length > 1 && maxCount > 1
+    };
+}
+
+function getResultSummaryText(result) {
+    if (result.isBalanced) {
+        return "五大家族频率均衡，需要结合你的主印记进一步判断。";
+    }
+
+    if (result.isTie) {
+        return "你的测试出现并列主频，建议结合主印记确认当前最需要被激活的家族。";
+    }
+
+    return "你的测试出现了一个频率最高的家族，它代表你当前最容易被激活的天赋通道。";
+}
+
+function renderFamilyResult(result) {
+    if (result.isBalanced) {
+        return renderBalancedResult(result);
+    }
+
+    if (result.isTie) {
+        return renderTieResult(result);
+    }
+
+    return renderDominantResult(result);
+}
+
+function renderDominantResult(result) {
+    const familyKey = result.leaders[0];
+    const family = FAMILY_DATA[familyKey];
+
+    return `
+        <article class="family-result-card featured">
+            <div class="family-result-top">
+                <span class="family-result-badge">${family.chakra}</span>
+                <span class="family-result-frequency">${result.maxCount}/5 次选择</span>
+            </div>
+            <h2>你的主频家族：${family.name} ${family.en}</h2>
+            <p>${family.summary}</p>
+            <p>${family.focus}</p>
+            <p>${family.advice}</p>
+            ${renderFamilyCounts(result.counts, result.leaders)}
+        </article>
+    `;
+}
+
+function renderBalancedResult(result) {
+    return `
+        <article class="family-result-card featured">
+            <div class="family-result-top">
+                <span class="family-result-badge">主印记判断</span>
+                <span class="family-result-frequency">五大家族各 1 次</span>
+            </div>
+            <h2>你的家族频率暂时均衡</h2>
+            <p>这组答案显示五个家族都被点亮了一次，当前题库结构下无法只凭频率选出唯一主频家族。</p>
+            <p>下一步需要结合你的生日主印记判断：主印记会告诉你哪一个家族更像你的底层出厂设置，也能帮助你理解当下最该优先激活的天赋通道。</p>
+            ${renderFamilyCounts(result.counts, result.leaders)}
+            <div class="family-result-actions">
+                <a class="test-link-button primary" href="index.html">去查询我的主印记</a>
+            </div>
+        </article>
+    `;
+}
+
+function renderTieResult(result) {
+    const leaderNames = result.leaders.map(familyKey => {
+        const family = FAMILY_DATA[familyKey];
+        return `${family.name} ${family.en}`;
+    }).join(" / ");
+
+    return `
+        <article class="family-result-card featured">
+            <div class="family-result-top">
+                <span class="family-result-badge">并列主频</span>
+                <span class="family-result-frequency">${result.maxCount}/5 次选择</span>
+            </div>
+            <h2>${leaderNames}</h2>
+            <p>你的答案同时点亮了多个高频家族，说明当前阶段有不止一个天赋通道在发力。</p>
+            <p>建议结合生日主印记判断优先级：主印记更像你的底层坐标，可以帮你确认先走哪条通道最顺。</p>
+            ${renderFamilyCounts(result.counts, result.leaders)}
+            <div class="family-result-actions">
+                <a class="test-link-button primary" href="index.html">去查询我的主印记</a>
+            </div>
+        </article>
+    `;
+}
+
+function renderFamilyCounts(counts, leaders) {
+    return `
+        <div class="family-count-grid" aria-label="家族频率统计">
+            ${FAMILY_ORDER.map(familyKey => {
+                const family = FAMILY_DATA[familyKey];
+                const isLeader = leaders.includes(familyKey);
+                return `
+                    <div class="family-count-item${isLeader ? " highlight" : ""}">
+                        <span>${family.chakra}</span>
+                        <strong>${family.name}</strong>
+                        <em>${counts[familyKey]} 次</em>
+                    </div>
+                `;
+            }).join("")}
+        </div>
+    `;
 }

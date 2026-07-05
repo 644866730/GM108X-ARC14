@@ -1455,10 +1455,8 @@ body.learning-page::before {
 }
 
 .answer-content {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    display: flex;
     align-items: center;
-    gap: 10px;
     min-width: 0;
 }
 
@@ -1501,38 +1499,6 @@ body.learning-page::before {
     line-height: 1.35;
 }
 
-.answer-totem {
-    min-width: 70px;
-    padding: 4px 8px;
-    border-radius: 999px;
-    color: #fff;
-    font-size: 0.76rem;
-    font-weight: 700;
-    text-align: center;
-    white-space: nowrap;
-}
-
-.answer-totem.red,
-.portrait-card.red .chakra-label {
-    background: #c62828;
-}
-
-.answer-totem.white,
-.portrait-card.white .chakra-label {
-    background: #795548;
-}
-
-.answer-totem.blue,
-.portrait-card.blue .chakra-label {
-    background: #1565c0;
-}
-
-.answer-totem.yellow,
-.portrait-card.yellow .chakra-label {
-    background: #f9a825;
-    color: #3b2500;
-}
-
 .quiz-actions {
     display: flex;
     justify-content: flex-end;
@@ -1571,71 +1537,118 @@ body.learning-page::before {
     color: #2a1260;
 }
 
-.portrait-grid {
+.family-result-grid {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 10px;
+    gap: 12px;
 }
 
-.portrait-card {
-    display: flex;
-    flex-direction: column;
-    min-height: 390px;
-    padding: 12px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.9);
+.family-result-card {
+    padding: 18px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.92);
     color: #2a1260;
-    box-shadow: 0 12px 26px rgba(25, 9, 61, 0.16);
+    box-shadow: 0 14px 30px rgba(25, 9, 61, 0.16);
 }
 
-.portrait-card-top {
+.family-result-card.featured {
+    border: 1px solid rgba(255, 210, 122, 0.7);
+    background:
+        linear-gradient(145deg, rgba(255, 248, 223, 0.96), rgba(255, 255, 255, 0.9)),
+        rgba(255, 255, 255, 0.92);
+}
+
+.family-result-top {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    min-height: 54px;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 10px;
 }
 
-.chakra-label,
-.family-label {
+.family-result-badge,
+.family-result-frequency {
     display: inline-flex;
     align-items: center;
-    min-height: 24px;
-    padding: 4px 8px;
+    min-height: 28px;
+    padding: 5px 10px;
     border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.family-result-badge {
+    background: linear-gradient(135deg, #7b1fa2, #512da8);
+    color: #fff;
+}
+
+.family-result-frequency {
+    background: rgba(123, 31, 162, 0.1);
+    color: #5f259f;
+}
+
+.family-result-card h2 {
+    margin: 0 0 10px;
+    color: #2a1260;
+    font-size: 1.3rem;
+    line-height: 1.32;
+}
+
+.family-result-card p {
+    margin: 0 0 10px;
+    color: rgba(42, 18, 96, 0.78);
+    font-size: 0.92rem;
+    line-height: 1.7;
+}
+
+.family-count-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.family-count-item {
+    display: grid;
+    gap: 5px;
+    min-height: 84px;
+    padding: 10px;
+    border: 1px solid rgba(123, 31, 162, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.family-count-item.highlight {
+    border-color: rgba(255, 202, 40, 0.92);
+    background: rgba(255, 248, 223, 0.92);
+}
+
+.family-count-item span {
+    color: rgba(74, 20, 140, 0.65);
     font-size: 0.72rem;
     font-weight: 800;
     line-height: 1.25;
 }
 
-.chakra-label {
-    color: #fff;
+.family-count-item strong {
+    color: #35106d;
+    font-size: 0.86rem;
+    line-height: 1.3;
 }
 
-.family-label {
-    background: rgba(123, 31, 162, 0.1);
-    color: #5f259f;
+.family-count-item em {
+    color: #6a1b9a;
+    font-style: normal;
+    font-size: 0.82rem;
+    font-weight: 800;
 }
 
-.portrait-card img {
-    width: 76px;
-    height: 76px;
-    object-fit: contain;
-    margin: 10px auto 8px;
-}
-
-.portrait-card h3 {
-    margin: 0 0 8px;
-    color: #31115c;
-    font-size: 1.02rem;
-    text-align: center;
-}
-
-.portrait-card p {
-    margin: 0;
-    color: rgba(42, 18, 96, 0.78);
-    font-size: 0.8rem;
-    line-height: 1.58;
+.family-result-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
 }
 
 .conversion-card {
@@ -1701,8 +1714,8 @@ body.learning-page::before {
 }
 
 @media (max-width: 920px) {
-    .portrait-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .family-count-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
@@ -1866,8 +1879,21 @@ body.learning-page::before {
         max-height: none;
     }
 
-    .portrait-grid {
-        grid-template-columns: 1fr;
+    .family-result-card {
+        padding: 14px;
+    }
+
+    .family-result-card h2 {
+        font-size: 1.08rem;
+    }
+
+    .family-result-card p {
+        font-size: 0.84rem;
+        line-height: 1.62;
+    }
+
+    .family-count-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .answer-grid {
@@ -1876,10 +1902,10 @@ body.learning-page::before {
     }
 
     .answer-option {
-        align-items: stretch;
-        grid-template-columns: 1fr;
-        gap: 8px;
-        min-height: 100px;
+        align-items: center;
+        grid-template-columns: 28px minmax(0, 1fr);
+        gap: 7px;
+        min-height: 68px;
         padding: 10px 8px;
     }
 
@@ -1890,21 +1916,12 @@ body.learning-page::before {
     }
 
     .answer-content {
-        grid-template-columns: 1fr;
-        justify-items: center;
-        align-content: center;
-        gap: 8px;
-        min-height: 52px;
+        min-height: auto;
     }
 
     .answer-text {
-        text-align: center;
+        text-align: left;
         line-height: 1.32;
-    }
-
-    .answer-totem {
-        justify-self: center;
-        min-width: 64px;
     }
 
     .quiz-actions,
@@ -1912,10 +1929,6 @@ body.learning-page::before {
     .conversion-actions {
         align-items: stretch;
         flex-direction: column;
-    }
-
-    .portrait-card {
-        min-height: auto;
     }
 }
 

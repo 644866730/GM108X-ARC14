@@ -91,7 +91,12 @@ const QUESTION_THEMES = [
     { title: "表达与连接", note: "选择你更自然的对外方式" },
     { title: "关系与行动", note: "选择你更容易进入的状态" },
     { title: "机会与信号", note: "选择你面对变化时的倾向" },
-    { title: "情绪与根基", note: "选择你稳定自己的方式" }
+    { title: "情绪与根基", note: "选择你稳定自己的方式" },
+    { title: "卡点与转化", note: "选择你处理阻滞的方式" },
+    { title: "资源与吸引", note: "选择你最容易聚拢资源的路径" },
+    { title: "压力与恢复", note: "选择你恢复能量的方式" },
+    { title: "愿景与落地", note: "选择你把想法落地的节奏" },
+    { title: "最终取向", note: "选择你最想守住的核心感受" }
 ];
 
 const ANSWER_SCORE_MATRIX = [
@@ -99,8 +104,15 @@ const ANSWER_SCORE_MATRIX = [
     ["cardinal", "cardinal", "gateway", "signal"],
     ["gateway", "cardinal", "core", "core"],
     ["signal", "polar", "gateway", "core"],
-    ["gateway", "polar", "signal", "cardinal"]
+    ["gateway", "polar", "signal", "cardinal"],
+    ["gateway", "cardinal", "polar", "core"],
+    ["polar", "cardinal", "signal", "gateway"],
+    ["gateway", "core", "cardinal", "polar"],
+    ["core", "signal", "cardinal", "signal"],
+    ["signal", "polar", "core", "gateway"]
 ];
+
+const TIEBREAKER_QUESTION_INDEXES = [0, 3, 6, 9];
 
 const TEST_DATA = {
     boss: {
@@ -153,6 +165,51 @@ const TEST_DATA = {
                     { label: "当下临在", totem: "白巫师" },
                     { label: "蜕变重组", totem: "蓝风暴" },
                     { label: "潜力播种", totem: "黄种子" }
+                ]
+            },
+            {
+                text: "项目卡住时，你第一步会怎么做？",
+                answers: [
+                    { label: "重判方向", totem: "红地球" },
+                    { label: "找关键人沟通", totem: "白风" },
+                    { label: "拆掉旧方案", totem: "蓝风暴" },
+                    { label: "回到长期愿景", totem: "黄太阳" }
+                ]
+            },
+            {
+                text: "你最擅长把钱花在哪？",
+                answers: [
+                    { label: "提升决策效率", totem: "黄战士" },
+                    { label: "清理无效成本", totem: "白镜子" },
+                    { label: "放大个人影响", totem: "蓝鹰" },
+                    { label: "打造审美体验", totem: "黄星星" }
+                ]
+            },
+            {
+                text: "压力最大时，什么最能让你回到状态？",
+                answers: [
+                    { label: "做出一个动作", totem: "蓝手" },
+                    { label: "说清一个问题", totem: "白风" },
+                    { label: "彻底更新计划", totem: "蓝风暴" },
+                    { label: "独处恢复能量", totem: "红蛇" }
+                ]
+            },
+            {
+                text: "一个新机会出现时，你最先看什么？",
+                answers: [
+                    { label: "未来空间", totem: "红天行者" },
+                    { label: "执行路径", totem: "蓝手" },
+                    { label: "资源连接", totem: "白世界桥" },
+                    { label: "长期根基", totem: "黄种子" }
+                ]
+            },
+            {
+                text: "你最想把事业做成什么样？",
+                answers: [
+                    { label: "有生命力", totem: "红蛇" },
+                    { label: "有辨识度", totem: "黄星星" },
+                    { label: "有真实价值", totem: "黄人" },
+                    { label: "有稳定通道", totem: "红龙" }
                 ]
             }
         ]
@@ -208,6 +265,51 @@ const TEST_DATA = {
                     { label: "变革重生", totem: "蓝风暴" },
                     { label: "潜力生长", totem: "黄种子" }
                 ]
+            },
+            {
+                text: "当你感到迷失时，最想找回什么？",
+                answers: [
+                    { label: "内在方向", totem: "红地球" },
+                    { label: "灵魂回应", totem: "白风" },
+                    { label: "深层更新", totem: "蓝风暴" },
+                    { label: "完整的光", totem: "黄太阳" }
+                ]
+            },
+            {
+                text: "你最容易被哪种召唤推动？",
+                answers: [
+                    { label: "说出真相", totem: "黄战士" },
+                    { label: "看见本质", totem: "白镜子" },
+                    { label: "俯瞰全局", totem: "蓝鹰" },
+                    { label: "创造美感", totem: "黄星星" }
+                ]
+            },
+            {
+                text: "低频状态来临时，你会如何照顾自己？",
+                answers: [
+                    { label: "亲手整理", totem: "蓝手" },
+                    { label: "说出感受", totem: "白风" },
+                    { label: "允许瓦解", totem: "蓝风暴" },
+                    { label: "回到身体", totem: "红蛇" }
+                ]
+            },
+            {
+                text: "你更相信哪一种灵魂路径？",
+                answers: [
+                    { label: "不断探索", totem: "红天行者" },
+                    { label: "一步步实现", totem: "蓝手" },
+                    { label: "连接众人", totem: "白世界桥" },
+                    { label: "等待花开", totem: "黄种子" }
+                ]
+            },
+            {
+                text: "如果只保留一种天命感，你会选择？",
+                answers: [
+                    { label: "活出热度", totem: "红蛇" },
+                    { label: "活出和谐", totem: "黄星星" },
+                    { label: "活出自由", totem: "黄人" },
+                    { label: "活出滋养", totem: "红龙" }
+                ]
             }
         ]
     },
@@ -262,6 +364,51 @@ const TEST_DATA = {
                     { label: "查漏补缺", totem: "蓝风暴" },
                     { label: "早睡", totem: "黄种子" }
                 ]
+            },
+            {
+                text: "学习计划乱掉时，你最先补哪一块？",
+                answers: [
+                    { label: "重新排节奏", totem: "红地球" },
+                    { label: "问清楚重点", totem: "白风" },
+                    { label: "重做错题", totem: "蓝风暴" },
+                    { label: "给自己打气", totem: "黄太阳" }
+                ]
+            },
+            {
+                text: "什么样的老师最能激发你？",
+                answers: [
+                    { label: "敢问敢答", totem: "黄战士" },
+                    { label: "逻辑清楚", totem: "白镜子" },
+                    { label: "视野开阔", totem: "蓝鹰" },
+                    { label: "课堂好看", totem: "黄星星" }
+                ]
+            },
+            {
+                text: "学累了，你通常怎么恢复？",
+                answers: [
+                    { label: "动手整理", totem: "蓝手" },
+                    { label: "找人聊聊", totem: "白风" },
+                    { label: "换一套方法", totem: "蓝风暴" },
+                    { label: "运动放电", totem: "红蛇" }
+                ]
+            },
+            {
+                text: "面对大目标，你更适合怎么推进？",
+                answers: [
+                    { label: "先拓宽思路", totem: "红天行者" },
+                    { label: "拆成小任务", totem: "蓝手" },
+                    { label: "找同伴互助", totem: "白世界桥" },
+                    { label: "长期坚持", totem: "黄种子" }
+                ]
+            },
+            {
+                text: "你最想拥有哪种学习状态？",
+                answers: [
+                    { label: "有冲劲", totem: "红蛇" },
+                    { label: "有美感", totem: "黄星星" },
+                    { label: "有自主权", totem: "黄人" },
+                    { label: "有支撑感", totem: "红龙" }
+                ]
             }
         ]
     },
@@ -315,6 +462,51 @@ const TEST_DATA = {
                     { label: "陪他静坐", totem: "白巫师" },
                     { label: "大扫除整理", totem: "蓝风暴" },
                     { label: "养花宠物", totem: "黄种子" }
+                ]
+            },
+            {
+                text: "孩子学习卡住时，你最想先帮他什么？",
+                answers: [
+                    { label: "找回节奏", totem: "红地球" },
+                    { label: "说出困惑", totem: "白风" },
+                    { label: "换掉旧方法", totem: "蓝风暴" },
+                    { label: "恢复自信", totem: "黄太阳" }
+                ]
+            },
+            {
+                text: "你最希望孩子拥有什么能力？",
+                answers: [
+                    { label: "敢于追问", totem: "黄战士" },
+                    { label: "看清事实", totem: "白镜子" },
+                    { label: "有大格局", totem: "蓝鹰" },
+                    { label: "有审美力", totem: "黄星星" }
+                ]
+            },
+            {
+                text: "亲子冲突后，你更适合怎样修复？",
+                answers: [
+                    { label: "一起做点事", totem: "蓝手" },
+                    { label: "好好说一说", totem: "白风" },
+                    { label: "重建新规则", totem: "蓝风暴" },
+                    { label: "先安抚身体", totem: "红蛇" }
+                ]
+            },
+            {
+                text: "陪孩子做长期规划时，你更重视什么？",
+                answers: [
+                    { label: "多见世界", totem: "红天行者" },
+                    { label: "每天执行", totem: "蓝手" },
+                    { label: "链接资源", totem: "白世界桥" },
+                    { label: "等待时机", totem: "黄种子" }
+                ]
+            },
+            {
+                text: "你最想给孩子哪种底层支持？",
+                answers: [
+                    { label: "生命活力", totem: "红蛇" },
+                    { label: "美好感受", totem: "黄星星" },
+                    { label: "自主选择", totem: "黄人" },
+                    { label: "稳定滋养", totem: "红龙" }
                 ]
             }
         ]
@@ -441,7 +633,7 @@ function initQuizPage() {
     const kicker = document.getElementById("quiz-version-kicker");
     if (title) title.textContent = version.title;
     if (guide) guide.textContent = version.guide;
-    if (kicker) kicker.textContent = "五题天赋测试";
+    if (kicker) kicker.textContent = "十题天赋测试";
 
     renderQuestions(version);
     document.getElementById("show-result").addEventListener("click", showResult);
@@ -478,10 +670,10 @@ function renderVersionCards() {
 function renderQuestions(version) {
     const form = document.getElementById("quiz-form");
     form.innerHTML = version.questions.map((question, questionIndex) => {
-        const theme = QUESTION_THEMES[questionIndex];
+        const theme = QUESTION_THEMES[questionIndex] || { title: `第 ${questionIndex + 1} 题`, note: "选择最贴近你的答案" };
         const options = question.answers.map((answer, answerIndex) => {
             const letter = String.fromCharCode(65 + answerIndex);
-            const familyKey = ANSWER_SCORE_MATRIX[questionIndex][answerIndex];
+            const familyKey = ANSWER_SCORE_MATRIX[questionIndex] ? ANSWER_SCORE_MATRIX[questionIndex][answerIndex] : FAMILY_ORDER[answerIndex % FAMILY_ORDER.length];
             return `
                 <label class="answer-option">
                     <input type="radio" name="q${questionIndex}" value="${familyKey}" data-totem="${answer.totem}">
@@ -518,14 +710,15 @@ function syncSelectedAnswers() {
 }
 
 function showResult() {
-    const familySelections = QUESTION_THEMES.map((_, index) => {
+    const questionCount = TEST_DATA[activeVersionKey].questions.length;
+    const familySelections = Array.from({ length: questionCount }, (_, index) => {
         const selected = document.querySelector(`input[name="q${index}"]:checked`);
         return selected ? selected.value : "";
     });
 
     if (familySelections.some(value => !value)) {
         const error = document.getElementById("quiz-error");
-        error.textContent = "请先完成 5 道题，再查看测试结果。";
+        error.textContent = `请先完成 ${questionCount} 道题，再查看测试结果。`;
         error.style.display = "block";
         error.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
@@ -598,25 +791,58 @@ function getFamilyResult(familySelections) {
     });
 
     const maxCount = Math.max(...Object.values(counts));
-    const leaders = FAMILY_ORDER.filter(familyKey => counts[familyKey] === maxCount);
-    const isBalanced = familySelections.length === FAMILY_ORDER.length && FAMILY_ORDER.every(familyKey => counts[familyKey] === 1);
+    const frequencyLeaders = FAMILY_ORDER.filter(familyKey => counts[familyKey] === maxCount);
+    const isEvenlyBalanced = FAMILY_ORDER.every(familyKey => counts[familyKey] === counts[FAMILY_ORDER[0]]);
+    const tiebreakerCounts = frequencyLeaders.reduce((score, familyKey) => {
+        score[familyKey] = 0;
+        return score;
+    }, {});
+    let leaders = frequencyLeaders;
+    let resolution = frequencyLeaders.length === 1 ? "frequency" : "tie";
+
+    if (frequencyLeaders.length > 1) {
+        TIEBREAKER_QUESTION_INDEXES.forEach(index => {
+            const familyKey = familySelections[index];
+            if (Object.prototype.hasOwnProperty.call(tiebreakerCounts, familyKey)) {
+                tiebreakerCounts[familyKey] += 1;
+            }
+        });
+
+        const tiebreakerMax = Math.max(...Object.values(tiebreakerCounts));
+        const tiebreakerLeaders = frequencyLeaders.filter(familyKey => tiebreakerCounts[familyKey] === tiebreakerMax);
+        if (tiebreakerMax > 0 && tiebreakerLeaders.length === 1) {
+            leaders = tiebreakerLeaders;
+            resolution = "tiebreaker";
+        } else {
+            resolution = isEvenlyBalanced ? "balanced" : "tie";
+        }
+    }
 
     return {
         counts,
+        frequencyLeaders,
         leaders,
         maxCount,
-        isBalanced,
-        isTie: leaders.length > 1 && maxCount > 1
+        total: familySelections.length,
+        tiebreakerCounts,
+        resolution,
+        isBalanced: resolution === "balanced",
+        isTie: resolution === "tie",
+        isTiebreaker: resolution === "tiebreaker"
     };
 }
 
 function getResultSummaryText(result) {
     if (result.isBalanced) {
-        return "五大家族频率均衡，需要结合你的主印记进一步判断。";
+        return "五大家族频率均衡，关键题也没有拉开差距，需要结合你的主印记进一步判断。";
     }
 
     if (result.isTie) {
-        return "你的测试出现并列主频，建议结合主印记确认当前最需要被激活的家族。";
+        return "你的测试出现并列主频，关键题仍未完全破局，建议结合主印记确认当前最需要被激活的家族。";
+    }
+
+    if (result.isTiebreaker) {
+        return "你的测试出现并列高频，系统已根据关键题倾向完成破局。";
     }
 
     return "你的测试出现了一个频率最高的家族，它代表你当前最容易被激活的天赋通道。";
@@ -637,18 +863,25 @@ function renderFamilyResult(result) {
 function renderDominantResult(result) {
     const familyKey = result.leaders[0];
     const family = FAMILY_DATA[familyKey];
+    const frequencyText = result.isTiebreaker
+        ? `${result.maxCount}/${result.total} 次选择 · 关键题破局`
+        : `${result.maxCount}/${result.total} 次选择`;
+    const tiebreakerNote = result.isTiebreaker
+        ? "<p>前面的总分出现并列，系统进一步查看 Q1、Q4、Q7、Q10 四道关键题，最终确认这个家族更贴近你当前的主频。</p>"
+        : "";
 
     return `
         <article class="family-result-card featured">
             <div class="family-result-top">
                 <span class="family-result-badge">${family.chakra}</span>
-                <span class="family-result-frequency">${result.maxCount}/5 次选择</span>
+                <span class="family-result-frequency">${frequencyText}</span>
             </div>
             <h2>你的主频家族：${family.name} ${family.en}</h2>
+            ${tiebreakerNote}
             <p>${family.summary}</p>
             <p>${family.focus}</p>
             <p>${family.advice}</p>
-            ${renderFamilyCounts(result.counts, result.leaders)}
+            ${renderFamilyCounts(result.counts, result.leaders, result.frequencyLeaders)}
         </article>
     `;
 }
@@ -658,12 +891,12 @@ function renderBalancedResult(result) {
         <article class="family-result-card featured">
             <div class="family-result-top">
                 <span class="family-result-badge">主印记判断</span>
-                <span class="family-result-frequency">五大家族各 1 次</span>
+                <span class="family-result-frequency">五大家族各 ${result.maxCount} 次</span>
             </div>
             <h2>你的家族频率暂时均衡</h2>
-            <p>这组答案显示五个家族都被点亮了一次，说明你当前的选择比较平均，暂时无法只凭频率选出唯一主频家族。</p>
+            <p>这组答案显示五个家族的频率完全一致，关键题也没有拉开明确差距，说明你当前的选择比较平均，暂时无法只凭测试选出唯一主频家族。</p>
             <p>下一步需要结合你的生日主印记判断：主印记会告诉你哪一个家族更像你的底层出厂设置，也能帮助你理解当下最该优先激活的天赋通道。</p>
-            ${renderFamilyCounts(result.counts, result.leaders)}
+            ${renderFamilyCounts(result.counts, result.leaders, result.frequencyLeaders)}
             <div class="family-result-actions">
                 <a class="test-link-button primary" href="index.html">去查询我的主印记</a>
             </div>
@@ -681,12 +914,12 @@ function renderTieResult(result) {
         <article class="family-result-card featured">
             <div class="family-result-top">
                 <span class="family-result-badge">并列主频</span>
-                <span class="family-result-frequency">${result.maxCount}/5 次选择</span>
+                <span class="family-result-frequency">${result.maxCount}/${result.total} 次选择</span>
             </div>
             <h2>${leaderNames}</h2>
             <p>你的答案同时点亮了多个高频家族，说明当前阶段有不止一个天赋通道在发力。</p>
-            <p>建议结合生日主印记判断优先级：主印记更像你的底层坐标，可以帮你确认先走哪条通道最顺。</p>
-            ${renderFamilyCounts(result.counts, result.leaders)}
+            <p>关键题也没有把并列家族完全分开，建议结合生日主印记判断优先级：主印记更像你的底层坐标，可以帮你确认先走哪条通道最顺。</p>
+            ${renderFamilyCounts(result.counts, result.leaders, result.frequencyLeaders)}
             <div class="family-result-actions">
                 <a class="test-link-button primary" href="index.html">去查询我的主印记</a>
             </div>
@@ -694,12 +927,12 @@ function renderTieResult(result) {
     `;
 }
 
-function renderFamilyCounts(counts, leaders) {
+function renderFamilyCounts(counts, leaders, frequencyLeaders = leaders) {
     return `
         <div class="family-count-grid" aria-label="家族频率统计">
             ${FAMILY_ORDER.map(familyKey => {
                 const family = FAMILY_DATA[familyKey];
-                const isLeader = leaders.includes(familyKey);
+                const isLeader = leaders.includes(familyKey) || frequencyLeaders.includes(familyKey);
                 return `
                     <div class="family-count-item${isLeader ? " highlight" : ""}">
                         <span>${family.chakra}</span>

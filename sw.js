@@ -1,10 +1,11 @@
-const CACHE_NAME = "maya-static-v20260705-3";
+const CACHE_NAME = "maya-static-v20260727-2";
 const PRECACHE_URLS = [
     "./test.html",
     "./test-start.html",
     "./test-quiz.html",
     "./test-result.html",
     "./style.css",
+    "./daily-tarot.js",
     "./test.js",
     "./cache-register.js",
     "./images/test.webp",

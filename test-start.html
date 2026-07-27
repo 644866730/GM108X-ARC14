@@ -15,53 +15,24 @@
 <body class="test-page">
     <div class="container test-container">
         <header class="test-hero">
-            <p class="test-kicker">测一测</p>
-            <h1>9.9 元天赋初解读</h1>
-            <p class="test-intro">包含：玛雅图腾 · 天赋关键词 · 水晶建议 · 塔罗寄语</p>
+            <div class="test-hero-copy">
+                <p class="test-kicker">测一测</p>
+                <h1>9.9 元天赋初解读</h1>
+                <p class="test-intro">包含：玛雅图腾 · 天赋关键词 · 水晶建议 · 塔罗寄语</p>
+            </div>
+            <aside class="daily-tarot" id="daily-tarot" aria-label="今日塔罗牌">
+                <div class="daily-tarot-card" aria-hidden="true">
+                    <span class="daily-tarot-number" id="daily-tarot-number">✦</span>
+                    <span class="daily-tarot-symbol" id="daily-tarot-symbol">☾</span>
+                </div>
+                <div class="daily-tarot-copy">
+                    <span class="daily-tarot-kicker">今日一牌</span>
+                    <strong class="daily-tarot-name" id="daily-tarot-name">正在抽取…</strong>
+                    <span class="daily-tarot-meaning" id="daily-tarot-meaning">请聆听今日指引</span>
+                </div>
+            </aside>
             <a class="hero-cta" href="#contact-qr">立即解锁我的天赋说明书</a>
         </header>
-
-        <section class="offer-rows" aria-label="天赋解码套餐">
-            <article class="offer-row offer-student">
-                <div class="offer-icon">🎓</div>
-                <div class="offer-copy">
-                    <span class="offer-title">[学生版]</span>
-                    <span class="offer-subtitle">塔罗深度解读 + 天然水晶手串</span>
-                </div>
-                <div class="offer-price">128 元</div>
-                <a class="offer-action" href="#contact-qr">[预约]</a>
-            </article>
-
-            <article class="offer-row offer-business">
-                <div class="offer-icon">💼</div>
-                <div class="offer-copy">
-                    <span class="offer-title">[商业版]</span>
-                    <span class="offer-subtitle">事业破局 · 财富天赋解码</span>
-                </div>
-                <div class="offer-price">298 元起</div>
-                <a class="offer-action" href="#contact-qr">[预约]</a>
-            </article>
-
-            <article class="offer-row offer-destiny">
-                <div class="offer-icon">🌿</div>
-                <div class="offer-copy">
-                    <span class="offer-title">[天命版]</span>
-                    <span class="offer-subtitle">灵魂使命 · 天赋事业解码</span>
-                </div>
-                <div class="offer-price">298 元起</div>
-                <a class="offer-action" href="#contact-qr">[预约]</a>
-            </article>
-
-            <article class="offer-row offer-growth">
-                <div class="offer-icon">🍃</div>
-                <div class="offer-copy">
-                    <span class="offer-title">[成长版]</span>
-                    <span class="offer-subtitle">内在觉醒 · 生命课题解码</span>
-                </div>
-                <div class="offer-price">298 元起</div>
-                <a class="offer-action" href="#contact-qr">[预约]</a>
-            </article>
-        </section>
 
         <main>
             <section class="test-panel" aria-labelledby="version-title">
@@ -70,6 +41,48 @@
                     <p>按你当前最关心的场景开始，点击后进入独立答题页。</p>
                 </div>
                 <div class="version-grid" id="version-grid"></div>
+            </section>
+
+            <section class="offer-rows" aria-label="天赋解码套餐">
+                <article class="offer-row offer-student">
+                    <div class="offer-icon">🎓</div>
+                    <div class="offer-copy">
+                        <span class="offer-title">[学生版]</span>
+                        <span class="offer-subtitle">塔罗深度解读 + 天然水晶手串</span>
+                    </div>
+                    <div class="offer-price">128 元</div>
+                    <a class="offer-action" href="#contact-qr">[预约]</a>
+                </article>
+
+                <article class="offer-row offer-business">
+                    <div class="offer-icon">💼</div>
+                    <div class="offer-copy">
+                        <span class="offer-title">[商业版]</span>
+                        <span class="offer-subtitle">事业破局 · 财富天赋解码</span>
+                    </div>
+                    <div class="offer-price">298 元起</div>
+                    <a class="offer-action" href="#contact-qr">[预约]</a>
+                </article>
+
+                <article class="offer-row offer-destiny">
+                    <div class="offer-icon">🌿</div>
+                    <div class="offer-copy">
+                        <span class="offer-title">[天命版]</span>
+                        <span class="offer-subtitle">灵魂使命 · 天赋事业解码</span>
+                    </div>
+                    <div class="offer-price">298 元起</div>
+                    <a class="offer-action" href="#contact-qr">[预约]</a>
+                </article>
+
+                <article class="offer-row offer-growth">
+                    <div class="offer-icon">🍃</div>
+                    <div class="offer-copy">
+                        <span class="offer-title">[成长版]</span>
+                        <span class="offer-subtitle">内在觉醒 · 生命课题解码</span>
+                    </div>
+                    <div class="offer-price">298 元起</div>
+                    <a class="offer-action" href="#contact-qr">[预约]</a>
+                </article>
             </section>
 
             <section class="qr-section" id="contact-qr" aria-labelledby="qr-title">
@@ -104,6 +117,7 @@
         </a>
     </div>
 
+    <script src="daily-tarot.js"></script>
     <script src="test.js"></script>
     <script src="cache-register.js"></script>
 </body>

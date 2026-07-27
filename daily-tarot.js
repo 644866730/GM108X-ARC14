@@ -90,46 +90,177 @@
 
     const TAROT_DECK = MAJOR_ARCANA.concat(MINOR_ARCANA);
 
-    function hashDate(dateKey) {
-        let hash = 2166136261;
-        for (let index = 0; index < dateKey.length; index += 1) {
-            hash ^= dateKey.charCodeAt(index);
-            hash = Math.imul(hash, 16777619);
-        }
-        return hash >>> 0;
-    }
+    const STORAGE_KEY = "maya-daily-tarot-draw";
+    let lastFocusedElement = null;
 
-    function renderDailyTarot() {
-        const widget = document.getElementById("daily-tarot");
-        if (!widget) {
-            return;
-        }
-
+    function getDateKey() {
         const now = new Date();
-        const dateKey = [
+        return [
             now.getFullYear(),
             String(now.getMonth() + 1).padStart(2, "0"),
             String(now.getDate()).padStart(2, "0")
         ].join("-");
-        const seed = hashDate(dateKey);
-        const card = TAROT_DECK[seed % TAROT_DECK.length];
-        const isReversed = ((seed >>> 8) & 1) === 1;
-        const position = isReversed ? "逆位" : "正位";
-        const meaning = isReversed ? card[4] : card[3];
+    }
 
-        document.getElementById("daily-tarot-number").textContent = card[0];
-        document.getElementById("daily-tarot-symbol").textContent = card[5];
-        document.getElementById("daily-tarot-name").textContent = `${card[1]} · ${position}`;
-        document.getElementById("daily-tarot-meaning").textContent = meaning.split("、").join(" · ");
+    function getSavedDraw() {
+        try {
+            const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+            const isValid = saved &&
+                saved.dateKey === getDateKey() &&
+                Number.isInteger(saved.cardIndex) &&
+                saved.cardIndex >= 0 &&
+                saved.cardIndex < TAROT_DECK.length &&
+                typeof saved.isReversed === "boolean";
+            return isValid ? saved : null;
+        } catch (error) {
+            return null;
+        }
+    }
 
-        widget.classList.toggle("is-reversed", isReversed);
-        widget.setAttribute("aria-label", `今日塔罗：${card[1]}，${position}。${meaning}`);
-        widget.title = `${card[1]} ${card[2]} · ${position}\n${meaning}`;
+    function randomInteger(maximum) {
+        if (window.crypto && typeof window.crypto.getRandomValues === "function") {
+            const randomValue = new Uint32Array(1);
+            window.crypto.getRandomValues(randomValue);
+            return randomValue[0] % maximum;
+        }
+        return Math.floor(Math.random() * maximum);
+    }
+
+    function createDailyDraw() {
+        const draw = {
+            dateKey: getDateKey(),
+            cardIndex: randomInteger(TAROT_DECK.length),
+            isReversed: randomInteger(2) === 1
+        };
+
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(draw));
+        } catch (error) {
+            // 存储不可用时仍允许本次抽牌。
+        }
+        return draw;
+    }
+
+    function syncDrawEntry(drawOverride) {
+        const savedDraw = drawOverride || getSavedDraw();
+        const widget = document.getElementById("daily-tarot");
+        const previewCard = widget ? widget.querySelector(".tarot-draw-card") : null;
+        const previewNumber = document.getElementById("tarot-preview-number");
+        const previewSymbol = document.getElementById("tarot-preview-symbol");
+        const previewTitle = document.getElementById("tarot-preview-title");
+        const status = document.getElementById("tarot-draw-status");
+        const buttonLabel = document.getElementById("tarot-draw-button-label");
+        if (!widget || !previewCard || !previewNumber || !previewSymbol || !previewTitle || !status || !buttonLabel) {
+            return;
+        }
+
+        if (savedDraw) {
+            const card = TAROT_DECK[savedDraw.cardIndex];
+            const position = savedDraw.isReversed ? "逆位" : "正位";
+            const meaning = savedDraw.isReversed ? card[4] : card[3];
+
+            previewNumber.textContent = card[0];
+            previewSymbol.textContent = card[5];
+            previewTitle.textContent = `${card[1]} · ${position}`;
+            status.textContent = meaning.split("、").join(" · ");
+            buttonLabel.textContent = "查看今日塔罗";
+            previewCard.classList.toggle("is-reversed", savedDraw.isReversed);
+            widget.classList.add("has-draw");
+            widget.setAttribute("aria-label", `今日塔罗：${card[1]}，${position}。${meaning}`);
+        } else {
+            previewNumber.textContent = "✦";
+            previewSymbol.textContent = "☾";
+            previewTitle.textContent = "抽取你的今日指引";
+            status.textContent = "静心片刻，凭第一感觉翻开属于你的牌";
+            buttonLabel.textContent = "抽取今日塔罗";
+            previewCard.classList.remove("is-reversed");
+            widget.classList.remove("has-draw");
+            widget.setAttribute("aria-label", "抽取你的今日塔罗牌");
+        }
+    }
+
+    function renderTarotResult(draw) {
+        const card = TAROT_DECK[draw.cardIndex];
+        const position = draw.isReversed ? "逆位" : "正位";
+        const meaning = draw.isReversed ? card[4] : card[3];
+        const resultCard = document.getElementById("tarot-result-card");
+
+        document.getElementById("tarot-result-number").textContent = card[0];
+        document.getElementById("tarot-result-symbol").textContent = card[5];
+        document.getElementById("tarot-position").textContent = position;
+        document.getElementById("tarot-result-title").textContent = card[1];
+        document.getElementById("tarot-result-english").textContent = card[2];
+        document.getElementById("tarot-result-meaning").textContent = meaning.split("、").join(" · ");
+
+        resultCard.classList.toggle("is-reversed", draw.isReversed);
+        resultCard.setAttribute("aria-label", `${card[1]}，${position}`);
+    }
+
+    function openTarotModal() {
+        const modal = document.getElementById("tarot-modal");
+        const revealStage = document.getElementById("tarot-reveal-stage");
+        const draw = getSavedDraw() || createDailyDraw();
+        if (!modal || !revealStage) {
+            return;
+        }
+
+        lastFocusedElement = document.activeElement;
+        renderTarotResult(draw);
+        syncDrawEntry(draw);
+        modal.hidden = false;
+        document.body.classList.add("tarot-modal-open");
+        revealStage.classList.remove("is-revealing");
+        void revealStage.offsetWidth;
+        revealStage.classList.add("is-revealing");
+
+        requestAnimationFrame(() => {
+            modal.classList.add("is-visible");
+            const closeButton = modal.querySelector(".tarot-modal-close");
+            if (closeButton) {
+                closeButton.focus();
+            }
+        });
+    }
+
+    function closeTarotModal() {
+        const modal = document.getElementById("tarot-modal");
+        if (!modal || modal.hidden) {
+            return;
+        }
+
+        modal.classList.remove("is-visible");
+        document.body.classList.remove("tarot-modal-open");
+        window.setTimeout(() => {
+            modal.hidden = true;
+        }, 260);
+
+        if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+            lastFocusedElement.focus();
+        }
+    }
+
+    function initDailyTarot() {
+        const drawButton = document.getElementById("tarot-draw-button");
+        const modal = document.getElementById("tarot-modal");
+        if (!drawButton || !modal) {
+            return;
+        }
+
+        syncDrawEntry();
+        drawButton.addEventListener("click", openTarotModal);
+        modal.querySelectorAll("[data-tarot-close]").forEach(element => {
+            element.addEventListener("click", closeTarotModal);
+        });
+        document.addEventListener("keydown", event => {
+            if (event.key === "Escape" && !modal.hidden) {
+                closeTarotModal();
+            }
+        });
     }
 
     if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", renderDailyTarot);
+        document.addEventListener("DOMContentLoaded", initDailyTarot);
     } else {
-        renderDailyTarot();
+        initDailyTarot();
     }
 })();

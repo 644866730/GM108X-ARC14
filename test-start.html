@@ -20,21 +20,27 @@
                 <h1>9.9 元天赋初解读</h1>
                 <p class="test-intro">包含：玛雅图腾 · 天赋关键词 · 水晶建议 · 塔罗寄语</p>
             </div>
-            <aside class="daily-tarot" id="daily-tarot" aria-label="今日塔罗牌">
-                <div class="daily-tarot-card" aria-hidden="true">
-                    <span class="daily-tarot-number" id="daily-tarot-number">✦</span>
-                    <span class="daily-tarot-symbol" id="daily-tarot-symbol">☾</span>
-                </div>
-                <div class="daily-tarot-copy">
-                    <span class="daily-tarot-kicker">今日一牌</span>
-                    <strong class="daily-tarot-name" id="daily-tarot-name">正在抽取…</strong>
-                    <span class="daily-tarot-meaning" id="daily-tarot-meaning">请聆听今日指引</span>
-                </div>
-            </aside>
             <a class="hero-cta" href="#contact-qr">立即解锁我的天赋说明书</a>
         </header>
 
         <main>
+            <section class="daily-tarot" id="daily-tarot" aria-labelledby="tarot-draw-title">
+                <div class="tarot-draw-card" aria-hidden="true">
+                    <span class="tarot-draw-corner" id="tarot-preview-number">✦</span>
+                    <span class="tarot-draw-moon" id="tarot-preview-symbol">☾</span>
+                    <span class="tarot-draw-corner">✦</span>
+                </div>
+                <div class="daily-tarot-copy">
+                    <p class="daily-tarot-kicker">DAILY TAROT · 今日一牌</p>
+                    <h2 id="tarot-draw-title"><span id="tarot-preview-title">抽取你的今日指引</span></h2>
+                    <p id="tarot-draw-status">静心片刻，凭第一感觉翻开属于你的牌</p>
+                </div>
+                <button class="tarot-draw-button" id="tarot-draw-button" type="button">
+                    <span id="tarot-draw-button-label">抽取今日塔罗</span>
+                    <span aria-hidden="true">✦</span>
+                </button>
+            </section>
+
             <section class="test-panel" aria-labelledby="version-title">
                 <div class="section-heading">
                     <h2 id="version-title">选择测试版本</h2>
@@ -96,6 +102,30 @@
                 <p class="qr-note">科学娱乐 · 天赋指引非命运定论</p>
             </section>
         </main>
+    </div>
+
+    <div class="tarot-modal" id="tarot-modal" role="dialog" aria-modal="true"
+        aria-labelledby="tarot-result-title" hidden>
+        <div class="tarot-modal-backdrop" data-tarot-close></div>
+        <section class="tarot-reveal">
+            <button class="tarot-modal-close" type="button" data-tarot-close aria-label="关闭今日塔罗">×</button>
+            <p class="tarot-reveal-kicker">YOUR DAILY TAROT · 今日指引</p>
+            <div class="tarot-reveal-stage" id="tarot-reveal-stage">
+                <div class="tarot-result-card" id="tarot-result-card" role="img" aria-label="今日塔罗牌">
+                    <span class="tarot-result-number" id="tarot-result-number">✦</span>
+                    <span class="tarot-result-symbol" id="tarot-result-symbol">☾</span>
+                    <span class="tarot-result-ornament">✦ · ✦ · ✦</span>
+                </div>
+            </div>
+            <div class="tarot-result-copy">
+                <span class="tarot-position" id="tarot-position">正位</span>
+                <h2 id="tarot-result-title">你的今日塔罗</h2>
+                <p class="tarot-result-english" id="tarot-result-english"></p>
+                <p class="tarot-result-meaning" id="tarot-result-meaning"></p>
+            </div>
+            <p class="tarot-result-note">今日只为你保留这一张牌，明天再来会遇见新的指引。</p>
+            <button class="tarot-confirm-button" type="button" data-tarot-close>收下今日指引</button>
+        </section>
     </div>
 
     <div class="bottom-nav">

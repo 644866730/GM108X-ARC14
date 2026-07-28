@@ -801,6 +801,91 @@ img[src] {
         0 2px 6px rgba(7, 1, 24, 0.68);
 }
 
+/* “测一测”作为核心入口，始终保持醒目的星芒按钮 */
+.bottom-nav .nav-item[href="test.html"] {
+    color: #fff2a8;
+    overflow: visible;
+}
+
+.bottom-nav .nav-item[href="test.html"] .nav-icon {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    display: grid;
+    place-items: center;
+    margin: -8px 0 1px;
+    border: 1.5px solid rgba(255, 238, 164, 0.92);
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 38% 28%, rgba(255, 255, 255, 0.45), transparent 22%),
+        linear-gradient(145deg, #a45bff 0%, #6c24b4 55%, #3a0c72 100%);
+    color: transparent;
+    font-size: 0;
+    box-shadow:
+        inset 0 0 0 3px rgba(255, 224, 102, 0.08),
+        0 0 0 3px rgba(110, 42, 181, 0.48),
+        0 0 16px rgba(255, 224, 102, 0.58),
+        0 6px 14px rgba(8, 1, 29, 0.58);
+    filter: none;
+    animation: testNavGlow 1.9s ease-in-out infinite;
+}
+
+.bottom-nav .nav-item[href="test.html"] .nav-icon::before {
+    content: "✦";
+    color: #fff6be;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 25px;
+    line-height: 1;
+    text-shadow:
+        0 0 5px #fff,
+        0 0 12px rgba(255, 224, 102, 0.95);
+}
+
+.bottom-nav .nav-item[href="test.html"] .nav-icon::after {
+    content: "·";
+    position: absolute;
+    top: 0;
+    right: 5px;
+    color: #fff9d5;
+    font-size: 14px;
+    line-height: 1;
+    text-shadow: 0 0 7px #fff;
+}
+
+.bottom-nav .nav-item[href="test.html"] > span {
+    color: #fff2a8;
+    font-weight: 900;
+    text-shadow:
+        0 0 9px rgba(255, 224, 102, 0.64),
+        0 2px 6px rgba(7, 1, 24, 0.72);
+}
+
+@keyframes testNavGlow {
+    0%,
+    100% {
+        box-shadow:
+            inset 0 0 0 3px rgba(255, 224, 102, 0.08),
+            0 0 0 3px rgba(110, 42, 181, 0.48),
+            0 0 13px rgba(255, 224, 102, 0.48),
+            0 6px 14px rgba(8, 1, 29, 0.58);
+    }
+
+    50% {
+        box-shadow:
+            inset 0 0 0 3px rgba(255, 224, 102, 0.15),
+            0 0 0 4px rgba(142, 69, 219, 0.52),
+            0 0 24px rgba(255, 224, 102, 0.84),
+            0 7px 16px rgba(8, 1, 29, 0.62);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bottom-nav .nav-item[href="test.html"] .nav-icon {
+        animation: none;
+    }
+}
+
 /* 导航点击动画 */
 .nav-item.nav-clicked .nav-icon {
     transform: scale(1.15);
@@ -2105,34 +2190,115 @@ body.tarot-modal-open {
 }
 
 .qr-section {
-    padding: 14px 0 34px;
+    padding: 10px 0 34px;
+}
+
+.booking-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 184px;
+    align-items: center;
+    gap: 24px;
+    width: min(100%, 680px);
+    margin: 0 auto;
+    padding: 22px 24px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 223, 113, 0.42);
+    border-radius: 20px;
+    background:
+        radial-gradient(circle at 8% 12%, rgba(255, 214, 83, 0.18), transparent 30%),
+        linear-gradient(135deg, rgba(72, 28, 126, 0.98), rgba(38, 17, 84, 0.98));
+    box-shadow: 0 18px 42px rgba(12, 3, 38, 0.34);
+}
+
+.booking-card::after {
+    content: "✦";
+    position: absolute;
+    right: 43%;
+    bottom: -32px;
+    color: rgba(255, 226, 126, 0.08);
+    font-size: 7rem;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.booking-copy {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+}
+
+.booking-kicker {
+    display: inline-flex;
+    align-items: center;
+    min-height: 27px;
+    padding: 4px 10px;
+    border: 1px solid rgba(255, 223, 117, 0.4);
+    border-radius: 999px;
+    color: #ffe574;
+    background: rgba(255, 212, 70, 0.1);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.booking-copy h2 {
+    margin: 13px 0 7px;
+    color: #fff;
+    font-size: clamp(1.25rem, 3vw, 1.72rem);
+    line-height: 1.25;
+    text-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+}
+
+.booking-copy p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 0.88rem;
+    line-height: 1.55;
+}
+
+.booking-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 14px;
+}
+
+.booking-tags span {
+    padding: 4px 8px;
+    border-radius: 7px;
+    color: #f7e9ff;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 0.72rem;
+    white-space: nowrap;
+}
+
+.booking-qr-box {
+    position: relative;
+    z-index: 1;
+    padding: 9px 9px 7px;
+    border: 1px solid rgba(255, 220, 94, 0.48);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 10px 28px rgba(12, 3, 38, 0.3);
     text-align: center;
 }
 
-.qr-card {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 8px;
-    padding: 12px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: 0 16px 32px rgba(16, 7, 47, 0.18);
-}
-
-.qr-card img {
-    width: min(240px, 76vw);
-    height: auto;
-    max-height: 360px;
-    object-fit: contain;
-    border-radius: 8px;
+.booking-qr {
     display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    border-radius: 7px;
 }
 
-.qr-note {
-    margin: 12px 0 0;
-    color: rgba(255, 255, 255, 0.72);
-    font-size: 0.82rem;
+.booking-qr-box > span {
+    display: block;
+    margin-top: 5px;
+    color: #5b2a88;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
 }
 
 @media (max-width: 920px) {
@@ -2398,17 +2564,62 @@ body.tarot-modal-open {
 
     .qr-section {
         margin-top: 6px;
-        padding: 12px 0 42px;
+        padding: 4px 0 42px;
     }
 
-    .qr-card {
-        padding: 9px;
-        border-radius: 10px;
+    .booking-card {
+        grid-template-columns: minmax(0, 1fr) 132px;
+        gap: 12px;
+        width: 100%;
+        padding: 15px 14px;
+        border-radius: 14px;
     }
 
-    .qr-card img {
-        width: min(230px, 82vw);
-        max-height: none;
+    .booking-card::after {
+        right: 36%;
+        font-size: 5rem;
+    }
+
+    .booking-kicker {
+        min-height: 23px;
+        padding: 3px 8px;
+        font-size: 0.63rem;
+    }
+
+    .booking-copy h2 {
+        margin: 9px 0 5px;
+        font-size: 1.08rem;
+    }
+
+    .booking-copy p {
+        font-size: 0.72rem;
+        line-height: 1.45;
+    }
+
+    .booking-tags {
+        display: grid;
+        gap: 5px;
+        margin-top: 9px;
+    }
+
+    .booking-tags span {
+        width: max-content;
+        padding: 3px 6px;
+        font-size: 0.63rem;
+    }
+
+    .booking-qr-box {
+        padding: 7px 7px 5px;
+        border-radius: 11px;
+    }
+
+    .booking-qr {
+        border-radius: 5px;
+    }
+
+    .booking-qr-box > span {
+        margin-top: 4px;
+        font-size: 0.56rem;
     }
 
     .family-result-card {
@@ -2474,7 +2685,8 @@ body.tarot-modal-open {
 }
 
 .test-splash-shell {
-    min-height: 100dvh;
+    min-height: calc(100dvh - 66px);
+    height: calc(100dvh - 66px);
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -2483,38 +2695,45 @@ body.tarot-modal-open {
 
 .test-splash-art {
     position: relative;
-    width: min(100vw, 760px);
+    width: auto;
+    height: 100%;
+    max-width: min(100vw, 1122px);
+    aspect-ratio: 1122 / 1402;
     line-height: 0;
 }
 
 .test-splash-picture {
     display: block;
     width: 100%;
+    height: 100%;
 }
 
 .test-splash-image {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: fill;
 }
 
 .test-splash-qr {
     position: absolute;
-    left: 58.8%;
-    top: 71.0%;
-    width: 29.8%;
-    height: 20.8%;
+    left: 57.5%;
+    top: 65.3%;
+    z-index: 2;
+    width: 32.4%;
+    height: 27.2%;
     object-fit: contain;
-    border-radius: 1.4%;
+    border-radius: 3.5%;
     background: #fff;
+    box-shadow: 0 0 14px rgba(83, 202, 255, 0.28);
 }
 
 .test-splash-button {
     position: absolute;
-    left: 6.6%;
-    top: 73.2%;
-    width: 28.4%;
-    height: 6.9%;
+    left: 7.1%;
+    top: 71.1%;
+    width: 27.8%;
+    height: 6.4%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2553,14 +2772,14 @@ body.tarot-modal-open {
 
 @media (max-width: 640px) {
     .test-splash-shell {
-        min-height: 100dvh;
-        height: 100dvh;
+        min-height: calc(100dvh - 66px);
+        height: calc(100dvh - 66px);
         overflow: hidden;
     }
 
     .test-splash-art {
         width: 100vw;
-        height: 100dvh;
+        height: calc(100dvh - 66px);
         overflow: hidden;
     }
 

@@ -1,4 +1,4 @@
-const CACHE_NAME = "maya-static-v20260728-2";
+const CACHE_NAME = "maya-static-v20260729-4";
 const PRECACHE_URLS = [
     "./test.html",
     "./test-start.html",
@@ -8,9 +8,10 @@ const PRECACHE_URLS = [
     "./daily-tarot.js",
     "./test.js",
     "./cache-register.js",
-    "./images/test.webp",
-    "./images/test-mobile.webp",
-    "./images/vx_3.png"
+    "./images/test-new-pc.webp",
+    "./images/test-new-mobile.webp",
+    "./images/vx3.jpg",
+    "./images/vx3-qr.webp"
 ];
 
 self.addEventListener("install", event => {

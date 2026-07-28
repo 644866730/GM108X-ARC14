@@ -725,13 +725,14 @@ img[src] {
     left: 0;
     right: 0;
     display: flex;
-    background: transparent;
-    backdrop-filter: none;
-    box-shadow: none;
+    background: linear-gradient(180deg, rgba(37, 15, 76, 0.94), rgba(24, 8, 55, 0.98));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 -10px 28px rgba(10, 2, 34, 0.34);
     z-index: 1000;
-    height: 60px;
+    height: 66px;
     padding-bottom: env(safe-area-inset-bottom, 0);
-    border-top: none;
+    border-top: 1px solid rgba(255, 232, 149, 0.18);
 }
 
 .nav-item {
@@ -741,45 +742,63 @@ img[src] {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    color: rgba(245, 235, 255, 0.6);
+    color: rgba(248, 241, 255, 0.82);
     transition: all 0.3s ease;
-    padding: 8px 0;
+    padding: 7px 0 8px;
     position: relative;
     overflow: hidden;
-    font-size: 0.75rem;
+    font-size: 0.78rem;
 }
 
 .nav-item:hover,
 .nav-item:active,
 .nav-item.active {
-    color: #f3e5ff;
-    background: transparent;
+    color: #fff1a8;
+    background:
+        radial-gradient(circle at 50% 18%, rgba(255, 224, 102, 0.18), transparent 46%),
+        linear-gradient(180deg, rgba(183, 149, 255, 0.13), rgba(255, 255, 255, 0.02));
 }
 
 .nav-item.active::after {
     content: "";
     position: absolute;
-    bottom: 6px;
-    left: 35%;
-    right: 35%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(243, 229, 255, 0.8), transparent);
-    border-radius: 2px;
-    box-shadow: none;
+    bottom: 4px;
+    left: 28%;
+    right: 28%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffe066 24%, #fff4bb 50%, #ffe066 76%, transparent);
+    border-radius: 999px;
+    box-shadow: 0 0 10px rgba(255, 224, 102, 0.68);
 }
 
 .nav-icon {
     font-size: 22px;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
     font-style: normal;
-    transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(8, 2, 25, 0.5));
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .nav-item span {
-    font-size: 11px;
+    font-size: 12px;
     transition: transform 0.2s ease;
-    font-weight: 500;
+    font-weight: 700;
     letter-spacing: 0.3px;
+    text-shadow: 0 2px 6px rgba(7, 1, 24, 0.62);
+}
+
+.nav-item.active .nav-icon {
+    transform: translateY(-1px) scale(1.1);
+    filter:
+        drop-shadow(0 0 7px rgba(255, 224, 102, 0.72))
+        drop-shadow(0 2px 4px rgba(8, 2, 25, 0.5));
+}
+
+.nav-item.active span {
+    font-weight: 900;
+    text-shadow:
+        0 0 8px rgba(255, 224, 102, 0.44),
+        0 2px 6px rgba(7, 1, 24, 0.68);
 }
 
 /* 导航点击动画 */

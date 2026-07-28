@@ -90,32 +90,8 @@
 
     const TAROT_DECK = MAJOR_ARCANA.concat(MINOR_ARCANA);
 
-    const STORAGE_KEY = "maya-daily-tarot-draw";
     let lastFocusedElement = null;
-
-    function getDateKey() {
-        const now = new Date();
-        return [
-            now.getFullYear(),
-            String(now.getMonth() + 1).padStart(2, "0"),
-            String(now.getDate()).padStart(2, "0")
-        ].join("-");
-    }
-
-    function getSavedDraw() {
-        try {
-            const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-            const isValid = saved &&
-                saved.dateKey === getDateKey() &&
-                Number.isInteger(saved.cardIndex) &&
-                saved.cardIndex >= 0 &&
-                saved.cardIndex < TAROT_DECK.length &&
-                typeof saved.isReversed === "boolean";
-            return isValid ? saved : null;
-        } catch (error) {
-            return null;
-        }
-    }
+    let currentDraw = null;
 
     function randomInteger(maximum) {
         if (window.crypto && typeof window.crypto.getRandomValues === "function") {
@@ -126,23 +102,23 @@
         return Math.floor(Math.random() * maximum);
     }
 
-    function createDailyDraw() {
+    function createRandomDraw() {
         const draw = {
-            dateKey: getDateKey(),
             cardIndex: randomInteger(TAROT_DECK.length),
             isReversed: randomInteger(2) === 1
         };
 
-        try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(draw));
-        } catch (error) {
-            // 存储不可用时仍允许本次抽牌。
+        if (currentDraw &&
+            draw.cardIndex === currentDraw.cardIndex &&
+            draw.isReversed === currentDraw.isReversed) {
+            draw.cardIndex = (draw.cardIndex + 1) % TAROT_DECK.length;
         }
+
+        currentDraw = draw;
         return draw;
     }
 
-    function syncDrawEntry(drawOverride) {
-        const savedDraw = drawOverride || getSavedDraw();
+    function syncDrawEntry(draw) {
         const widget = document.getElementById("daily-tarot");
         const previewCard = widget ? widget.querySelector(".tarot-draw-card") : null;
         const previewNumber = document.getElementById("tarot-preview-number");
@@ -154,25 +130,25 @@
             return;
         }
 
-        if (savedDraw) {
-            const card = TAROT_DECK[savedDraw.cardIndex];
-            const position = savedDraw.isReversed ? "逆位" : "正位";
-            const meaning = savedDraw.isReversed ? card[4] : card[3];
+        if (draw) {
+            const card = TAROT_DECK[draw.cardIndex];
+            const position = draw.isReversed ? "逆位" : "正位";
+            const meaning = draw.isReversed ? card[4] : card[3];
 
             previewNumber.textContent = card[0];
             previewSymbol.textContent = card[5];
             previewTitle.textContent = `${card[1]} · ${position}`;
             status.textContent = meaning.split("、").join(" · ");
-            buttonLabel.textContent = "查看今日塔罗";
-            previewCard.classList.toggle("is-reversed", savedDraw.isReversed);
+            buttonLabel.textContent = "再抽一张";
+            previewCard.classList.toggle("is-reversed", draw.isReversed);
             widget.classList.add("has-draw");
             widget.setAttribute("aria-label", `今日塔罗：${card[1]}，${position}。${meaning}`);
         } else {
             previewNumber.textContent = "✦";
             previewSymbol.textContent = "☾";
-            previewTitle.textContent = "抽取你的今日指引";
-            status.textContent = "静心片刻，凭第一感觉翻开属于你的牌";
-            buttonLabel.textContent = "抽取今日塔罗";
+            previewTitle.textContent = "抽取此刻的塔罗指引";
+            status.textContent = "每次点击都会随机获得一张新的指引";
+            buttonLabel.textContent = "抽取一张塔罗";
             previewCard.classList.remove("is-reversed");
             widget.classList.remove("has-draw");
             widget.setAttribute("aria-label", "抽取你的今日塔罗牌");
@@ -199,7 +175,7 @@
     function openTarotModal() {
         const modal = document.getElementById("tarot-modal");
         const revealStage = document.getElementById("tarot-reveal-stage");
-        const draw = getSavedDraw() || createDailyDraw();
+        const draw = createRandomDraw();
         if (!modal || !revealStage) {
             return;
         }

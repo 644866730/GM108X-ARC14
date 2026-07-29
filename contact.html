@@ -144,9 +144,10 @@
 
         /* 二维码图片 */
         .qr-code-img {
-            width: 180px;
-            height: 250px;
-            object-fit: cover;
+            width: min(180px, 48vw);
+            height: auto;
+            max-height: 250px;
+            object-fit: contain;
             border-radius: 18px;
             box-shadow:
                 0 10px 40px rgba(139, 69, 19, 0.3),
@@ -249,8 +250,9 @@
             }
 
             .qr-code-img {
-                width: 160px;
-                height: 220px;
+                width: min(150px, 44vw);
+                height: auto;
+                max-height: 212px;
             }
 
             .contact-description {

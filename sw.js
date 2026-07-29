@@ -1,4 +1,4 @@
-const CACHE_NAME = "maya-static-v20260729-4";
+const CACHE_NAME = "maya-static-v20260729-5";
 const PRECACHE_URLS = [
     "./test.html",
     "./test-start.html",
@@ -10,7 +10,6 @@ const PRECACHE_URLS = [
     "./cache-register.js",
     "./images/test-new-pc.webp",
     "./images/test-new-mobile.webp",
-    "./images/vx3.jpg",
     "./images/vx3-qr.webp"
 ];
 
